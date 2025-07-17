@@ -483,6 +483,15 @@ class ContactInfo extends ElementorBase {
 			]
 		);
 
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'box_border',
+				'label' => __('Border', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-contact-info',
+			]
+		);
+
 		$this->add_responsive_control(
 			'box_radius',
 			[

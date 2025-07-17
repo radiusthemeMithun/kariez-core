@@ -44,7 +44,6 @@ class Button extends ElementorBase {
 					'2' => __( 'Button 02', 'kariez-core' ),
 					'3' => __( 'Button 03', 'kariez-core' ),
 					'4' => __( 'Button 04', 'kariez-core' ),
-					'5' => __( 'Button 05', 'kariez-core' ),
 				],
 				'default'     => '1',
 			]
@@ -56,7 +55,7 @@ class Button extends ElementorBase {
 				'label'       => esc_html__( 'Button Text', 'kariez-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
-				'default'     => 'See More',
+				'default'     => 'Get In Touch',
 			]
 		);
 
@@ -118,6 +117,20 @@ class Button extends ElementorBase {
 			[
 				'name'     => 'button_typo',
 				'label'    => esc_html__( 'Typography', 'kariez-core' ),
+				'selector' => '{{WRAPPER}} .rt-button .btn',
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_bg_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
+				],
 				'selector' => '{{WRAPPER}} .rt-button .btn',
 			]
 		);
@@ -192,6 +205,18 @@ class Button extends ElementorBase {
 			]
 		);
 
+		$this->add_responsive_control(
+			'button_text_margin',
+			[
+				'label'              => __( 'Button Text Margin', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn .button-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
 		//Button style Tabs
 		$this->start_controls_tabs(
 			'button_style_tabs', [
@@ -210,8 +235,7 @@ class Button extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-button .btn' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-button .btn i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn .button-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -219,7 +243,7 @@ class Button extends ElementorBase {
 		$this->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name' => 'button_bg_color',
+				'name' => 'button_before_bg_color',
 				'label' => __('Background', 'kariez-core'),
 				'types' => ['classic', 'gradient'],
 				'fields_options'  => [
@@ -263,8 +287,7 @@ class Button extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-button .btn:hover' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-button .btn:hover i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn:hover .button-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -272,7 +295,7 @@ class Button extends ElementorBase {
 		$this->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name' => 'button_bg_hover_color',
+				'name' => 'button_before_bg_hover_color',
 				'label' => __('Background', 'kariez-core'),
 				'types' => ['classic', 'gradient'],
 				'fields_options'  => [
@@ -280,7 +303,7 @@ class Button extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .rt-button .btn:after',
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover:before',
 			]
 		);
 
@@ -344,12 +367,11 @@ class Button extends ElementorBase {
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default'          => [
-					'value'   => 'icon-rt-right-arrow',
+					'value'   => 'icon-arrow-right',
 					'library' => 'solid',
 				],
 			]
 		);
-
 		$this->add_control(
 			'icon_size',
 			[
@@ -373,7 +395,6 @@ class Button extends ElementorBase {
 				],
 			]
 		);
-
 		$this->add_control(
 			'button_icon_color',
 			[
@@ -385,7 +406,17 @@ class Button extends ElementorBase {
 				],
 			]
 		);
-
+		$this->add_control(
+			'button_icon_hover_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Hover Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn:hover i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn:hover svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
 		$this->add_responsive_control(
 			'icon_space',
 			[
@@ -405,6 +436,95 @@ class Button extends ElementorBase {
 				],
 			]
 		);
+
+		$this->add_responsive_control(
+			'icon_shape_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'before',
+			]
+		);
+		$this->add_responsive_control(
+			'icon_shape_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_color',
+				'label' => __('Icon Shape Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn .btn-round-shape',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_hover_color',
+				'label' => __('Icon Shape Hover Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Hover Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover .btn-round-shape',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_icon_shape_radius',
+			[
+				'label'              => __( 'Icon Shape Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ '%', 'px'  ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
 
 		$this->end_controls_section();
 

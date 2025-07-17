@@ -12,8 +12,20 @@
  * @var $delay                          string
  * @var $duration                       string
  * @var $title_layout                   string
- *
+ * @var $description                    string
+ * @var $feature_lists                  string
+ * @var $show_feature_list              string
+ * @var $list_column                    string
+ * @var $alignment                      string
+ * @var $animation                      string
+ * @var $animation_effect               string
+ * @var $delay                          string
+ * @var $duration                       string
+ * @var $list_layout                    string
+
  */
+
+use Elementor\Icons_Manager;
 
 
 ?>
@@ -37,5 +49,16 @@
         </<?php echo esc_attr( $main_title_tag ) ?>>
         </div>
         <?php endif; ?>
+    <!--Description-->
+	<?php if ( $description ): ?>
+        <div class="description <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="600ms" data-wow-duration="1200ms"><?php kariez_html( $description, 'allow_title' );?></div>
+	<?php endif; ?>
+	<?php if ( $feature_lists && $show_feature_list ) { ?>
+        <ul class="feature-list <?php echo esc_attr( $list_layout );?> <?php echo esc_attr( $list_column );?>">
+			<?php $ade = $delay; $adu = $duration; foreach ( $feature_lists as $feature): ?>
+                <li class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms"><?php if( $feature['list_icon'] ) { ?><span class="icon"><?php \Elementor\Icons_Manager::render_icon( $feature['list_icon'] , ['aria-hidden' => 'true'] ); ?></span><?php } ?><?php echo esc_html( $feature['list_text'] ); ?></li>
+				<?php $ade = $ade + 200; $adu = $adu + 0; endforeach; ?>
+        </ul>
+	<?php } ?>
     </div>
 </div>

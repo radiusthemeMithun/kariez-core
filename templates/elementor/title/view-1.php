@@ -17,8 +17,8 @@
  * @var $delay                          string
  * @var $duration                       string
  * @var $list_layout                    string
- * @var $highlight_sub_title            string
  * @var $title_layout                   string
+ * @var $round_small_shape              string
  *
  */
 use Elementor\Icons_Manager;
@@ -31,11 +31,11 @@ use Elementor\Icons_Manager;
 		<?php if ( $top_sub_title ): ?>
 			<div class="top-sub-title-wrap <?php echo esc_attr( $animation );?>
 			<?php echo esc_attr( $animation_effect );?>" data-wow-delay="200ms" data-wow-duration="1200ms">
-                <div class="top-sub-title <?php echo esc_attr( $sub_title_style );?>">
+                <div class="top-sub-title has-animation <?php echo esc_attr( $sub_title_style );?>">
+	                <?php if ($round_small_shape == 'yes') { ?>
+                        <span class="round-subtitle-shape"></span>
+	                <?php } ?>
                     <?php echo esc_html( $top_sub_title ); ?>
-                    <?php if ($highlight_sub_title): ?>
-                        <span class="highlight-subtitle"> <?php echo esc_html( $highlight_sub_title ); ?></span>
-                    <?php endif; ?>
                 </div>
 			</div>
 		<?php endif; ?>
@@ -45,6 +45,7 @@ use Elementor\Icons_Manager;
         <div class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="400ms" data-wow-duration="1200ms">
             <<?php echo esc_attr( $main_title_tag ) ?> class="main-title">
             <?php kariez_html( $title, 'allow_title' );?>
+        </<?php echo esc_attr( $main_title_tag ) ?>>
         </div>
         <?php endif; ?>
 

@@ -45,6 +45,7 @@ class InfoBox extends ElementorBase {
 					'layout-1' => __( 'Layout 1', 'kariez-core' ),
 					'layout-2' => __( 'Layout 2', 'kariez-core' ),
                     'layout-3' => __( 'Layout 3', 'kariez-core' ),
+					'layout-4' => __( 'Layout 4', 'kariez-core' ),
 				],
 			]
 		);
@@ -69,24 +70,15 @@ class InfoBox extends ElementorBase {
 			]
 		);
 
-        $this->add_control(
-            'stroke_title',
-            [
-                'label'       => esc_html__( 'Stroke Title', 'kariez-core' ),
-                'type'        => Controls_Manager::TEXT,
-                'label_block' => true,
-            ]
-        );
-
 		$this->add_control(
 			'icon_type',
 			[
-				'label'   => __( 'Icon Type', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
+				'label' => __('Icon Type', 'kariez-core'),
+				'type' => Controls_Manager::SELECT,
 				'default' => 'icon',
 				'options' => [
-					'icon'  => __( 'Icon', 'kariez-core' ),
-					'image' => __( 'Image', 'kariez-core' ),
+					'icon' => __('Icon', 'kariez-core'),
+					'image' => __('Image', 'kariez-core'),
 				],
 			]
 		);
@@ -98,14 +90,15 @@ class InfoBox extends ElementorBase {
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default'          => [
-					'value'   => 'fas fa-home',
-					'library' => 'fa-solid',
+					'value'   => 'icon-home',
+					'library' => 'solid',
 				],
-				'condition'        => [
+				'condition' => [
 					'icon_type' => [ 'icon' ],
 				],
 			]
 		);
+
 
 		$this->add_control(
 			'image_icon',
@@ -121,69 +114,22 @@ class InfoBox extends ElementorBase {
 			]
 		);
 
-
-		$repeater = new \Elementor\Repeater();
-		$repeater->add_control(
-			'list_text',
+		$this->add_control(
+			'info_top_icon',
 			[
-				'label'       => __( 'List Text', 'kariez-core' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => __( 'Powerful database store', 'kariez-core' ),
-				'label_block' => true,
-			]
-		);
-		$repeater->add_control(
-			'list_icon',
-			[
-				'label'            => __( 'Choose Icon', 'kariez-core' ),
+				'label'            => __( 'Choose Top Icon', 'kariez-core' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default'          => [
-					'value'   => 'icon-rt-correct',
+					'value'   => 'icon-truck',
 					'library' => 'solid',
 				],
-			]
-		);
-
-		$this->add_control(
-			'show_feature_list',
-			[
-				'label'        => __( 'Feature List', 'kariez-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'On', 'kariez-core' ),
-				'label_off'    => __( 'Off', 'kariez-core' ),
-				'return_value' => 'is-feature',
-				'condition'  => [
+				'condition'   => [
 					'layout' => 'layout-4',
 				],
 			]
 		);
 
-		$this->add_control(
-			'feature_lists',
-			[
-				'label'       => __( 'Feature List', 'kariez-core' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $repeater->get_controls(),
-				'default'     => [
-					[
-						'list_text'        => __( 'Powerful database store', 'kariez-core' ),
-					],
-					[
-						'list_text'        => __( 'Easy to access all projects', 'kariez-core' ),
-					],
-					[
-						'list_text'        => __( 'Certificate awarded', 'kariez-core' ),
-					],
-
-				],
-				'title_field' => '{{{ name }}}',
-				'condition'   => [
-					'show_feature_list' => [ 'is-feature' ],
-					'layout' => ['layout-4'],
-				],
-			]
-		);
 
 		$this->add_control(
 			'show_read_more_btn',
@@ -254,93 +200,9 @@ class InfoBox extends ElementorBase {
 			]
 		);
 
-		// scroll animation
-		$this->add_control(
-			'scroll_animation',
-			[
-				'label'        => __( 'Scroll Animation', 'kariez-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'kariez-core' ),
-				'label_off'    => __( 'Hide', 'kariez-core' ),
-				'return_value' => 'yes',
-				'default'      => 'no',
-				'separator' => 'before',
-			]
-		);
-		$this->add_control(
-			'x_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'y',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'y_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'x',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_one',
-			[
-				'label'       => esc_html__( 'Range Value One', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 50,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_two',
-			[
-				'label'       => esc_html__( 'Range Value Two', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 0,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
 
 		$this->end_controls_section();
+
 
 		// Title Settings
 		//==============================================================
@@ -546,6 +408,7 @@ class InfoBox extends ElementorBase {
 				'condition' => [
 					'icon_type' => [ 'icon' ],
 				],
+
 			]
 		);
 
@@ -1010,7 +873,7 @@ class InfoBox extends ElementorBase {
 				'label' => esc_html__( 'Info Image Settings', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition'    => [
-					'layout' => ['layout-1', 'layout-4', 'layout-5'],
+					'layout' => ['layout-1'],
 				],
 			]
 		);
@@ -1106,6 +969,127 @@ class InfoBox extends ElementorBase {
 		);
 
 		$this->end_controls_section();
+
+		// Info top Icon
+
+		$this->start_controls_section(
+			'top_icon_settings',
+			[
+				'label'     => esc_html__( 'Top Icon Settings', 'kariez-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'layout' => 'layout-4',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'top_icon_width',
+			[
+				'label'      => __( 'Icon Width', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon' => 'width:{{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'top_icon_height',
+			[
+				'label'      => __( 'Icon Height', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon' => 'height:{{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'top_icon_border_radius',
+			[
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => esc_html__( 'Border Radius', 'kariez-core' ),
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon' => 'border-radius: {{SIZE}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'top_icon_font_size',
+			[
+				'label'      => __( 'Icon Size', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 10,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon'   => 'font-size:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon svg' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_control(
+			'top_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .info-box .info-top-icon svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'top_icon_bg_color',
+				'label' => __('Icon Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-info-box .info-box .info-top-icon',
+			]
+		);
+
+		$this->end_controls_section();
+
 
 		// Read More Button Settings
 		$this->start_controls_section(
@@ -1208,6 +1192,19 @@ class InfoBox extends ElementorBase {
 			]
 		);
 
+		$this->add_responsive_control(
+			'button_text_margin',
+			[
+				'label'              => __( 'Button Text Margin', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .button-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+
 		// Button Icon Settings
 		$this->add_control(
 			'button_icon_heading',
@@ -1226,7 +1223,7 @@ class InfoBox extends ElementorBase {
 				'label_on'     => __( 'Yes', 'kariez-core' ),
 				'label_off'    => __( 'No', 'kariez-core' ),
 				'return_value' => 'yes',
-				'default'      => false,
+				'default'      => true,
 			]
 		);
 
@@ -1248,7 +1245,7 @@ class InfoBox extends ElementorBase {
 				'label'     => __( 'Button Icon', 'kariez-core' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
-					'value'   => 'icon-rt-right-arrow',
+					'value'   => 'icon-arrow-right',
 					'library' => 'solid',
 				],
 				'condition' => [
@@ -1279,6 +1276,138 @@ class InfoBox extends ElementorBase {
 				],
 			]
 		);
+
+		$this->add_control(
+			'btn_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .rt-button .btn svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'btn_icon_hover_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Hover Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn:hover i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .rt-button .btn:hover svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'btn_icon_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Space', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn' => 'column-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'btn_icon_shape_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .btn-round-shape' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'before',
+			]
+		);
+		$this->add_responsive_control(
+			'btn_icon_shape_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .btn-round-shape' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'btn_icon_shape_bg_color',
+				'label' => __('Icon Shape Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-info-box .rt-button .btn .btn-round-shape',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'btn_icon_shape_bg_hover_color',
+				'label' => __('Icon Shape Hover Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Hover Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-info-box .rt-button .btn:hover .btn-round-shape',
+			]
+		);
+
+		$this->add_responsive_control(
+			'btn_icon_shape_radius',
+			[
+				'label'              => __( 'Icon Shape Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ '%', 'px'  ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .btn-round-shape' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+
 		//Start read_more Style Tab
 		$this->start_controls_tabs(
 			'read_more_style_tabs'
@@ -1298,7 +1427,7 @@ class InfoBox extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-info-box .rt-button .btn' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .button-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1326,7 +1455,7 @@ class InfoBox extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => ' {{WRAPPER}} .rt-info-box .rt-button .btn:before',
+				'selector' => ' {{WRAPPER}} .rt-info-box .rt-button .btn',
 			]
 		);
 
@@ -1364,7 +1493,7 @@ class InfoBox extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Color Hover', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-info-box .rt-button .btn:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .rt-button .btn .button-text:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1380,11 +1509,10 @@ class InfoBox extends ElementorBase {
 				],
 			]
 		);
-
 		$this->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name' => 'read_more_bg_hover',
+				'name' => 'read_more_hover_bg',
 				'label' => __('Background', 'kariez-core'),
 				'types' => ['classic', 'gradient'],
 				'fields_options'  => [
@@ -1392,9 +1520,10 @@ class InfoBox extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => ' {{WRAPPER}} .rt-info-box .rt-button .btn:after',
+				'selector' => ' {{WRAPPER}} .rt-info-box .rt-button .btn:before',
 			]
 		);
+
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Box_Shadow::get_type(),
@@ -1687,14 +1816,13 @@ class InfoBox extends ElementorBase {
 	protected function render() {
 		$data     = $this->get_settings();
 
-
-
-
 		$template = 'view-1';
 		if ( 'layout-2' == $data['layout'] ) {
 			$template = 'view-2';
 		} elseif ( 'layout-3' == $data['layout'] ) {
 			$template = 'view-3';
+		} elseif ( 'layout-4' == $data['layout'] ) {
+			$template = 'view-4';
 		}
 
 		Fns::get_template( "elementor/info-box/{$template}", $data );

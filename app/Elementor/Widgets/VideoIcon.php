@@ -8,6 +8,7 @@
 namespace RT\KariezCore\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 use RT\KariezCore\Helper\Fns;
 use RT\KariezCore\Abstracts\ElementorBase;
@@ -209,93 +210,9 @@ class VideoIcon extends ElementorBase {
 			]
 		);
 
-		// scroll animation
-		$this->add_control(
-			'scroll_animation',
-			[
-				'label'        => __( 'Scroll Animation', 'kariez-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'kariez-core' ),
-				'label_off'    => __( 'Hide', 'kariez-core' ),
-				'return_value' => 'yes',
-				'default'      => 'no',
-				'separator' => 'before',
-			]
-		);
-		$this->add_control(
-			'x_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'y',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'y_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'x',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_one',
-			[
-				'label'       => esc_html__( 'Range Value One', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 50,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_two',
-			[
-				'label'       => esc_html__( 'Range Value Two', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 0,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-
 		$this->end_controls_section();
+
+
 
 		//Play Button Style
 		$this->start_controls_section(
@@ -306,47 +223,102 @@ class VideoIcon extends ElementorBase {
 			]
 		);
 
-		$this->add_control(
-			'button_size',
+		$this->add_responsive_control(
+			'button_height',
 			[
-				'label' => __( 'Button Size', 'kariez-core' ),
+				'label' => __( 'Button Height', 'kariez-core' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range' => [
+				'size_units' => [ 'px', '%', 'vh' ],
+				'range'      => [
 					'px' => [
-						'min' => 0,
-						'max' => 3,
-						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
 					],
-				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 1,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .icon-box' => 'transform: scale({{SIZE}});',
-				],
-			]
-		);
-
-		$this->add_control(
-			'icon_size',
-			[
-				'label' => __( 'Icon Size', 'kariez-core' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range' => [
-					'px' => [
+					'%' => [
 						'min' => 0,
 						'max' => 100,
+					],
+					'vh' => [
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .icon-box .icon-rt-play' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
+		$this->add_responsive_control(
+			'button_width',
+			[
+				'label' => __( 'Button Width', 'kariez-core' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'vh' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'vh' => [
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+//		$this->add_control(
+//			'button_size',
+//			[
+//				'label' => __( 'Button Size', 'kariez-core' ),
+//				'type' => Controls_Manager::SLIDER,
+//				'size_units' => [ 'px' ],
+//				'range' => [
+//					'px' => [
+//						'min' => 0,
+//						'max' => 3,
+//						'step' => 0.1,
+//					],
+//				],
+//				'default' => [
+//					'unit' => 'px',
+//					'size' => 1,
+//				],
+//				'selectors' => [
+//					'{{WRAPPER}} .rt-video-icon .icon-box' => 'transform: scale({{SIZE}});',
+//				],
+//			]
+//		);
+//
+//		$this->add_control(
+//			'icon_size',
+//			[
+//				'label' => __( 'Icon Size', 'kariez-core' ),
+//				'type' => Controls_Manager::SLIDER,
+//				'size_units' => [ 'px' ],
+//				'range' => [
+//					'px' => [
+//						'min' => 0,
+//						'max' => 100,
+//						'step' => 1,
+//					],
+//				],
+//				'selectors' => [
+//					'{{WRAPPER}} .rt-video-icon .icon-box .icon-rt-play' => 'font-size: {{SIZE}}{{UNIT}};',
+//				],
+//			]
+//		);
 
 		$this->add_control(
 			'button_spacing',
@@ -366,7 +338,7 @@ class VideoIcon extends ElementorBase {
 					'size' => 0,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .icon-box' => 'margin-right:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon' => 'margin-right:{{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -378,6 +350,7 @@ class VideoIcon extends ElementorBase {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
+					'{{WRAPPER}} .rt-video-icon .icon-box' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					'{{WRAPPER}} .rt-video-icon .video-popup-icon' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					'{{WRAPPER}} .rt-video-icon .video-popup-icon::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 					'{{WRAPPER}} .rt-video-icon .video-popup-icon::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
@@ -396,16 +369,27 @@ class VideoIcon extends ElementorBase {
 			]
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'icon_typo',
+				'label'    => esc_html__( 'Icon Typography', 'kariez-core' ),
+				'selector' => '{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon i',
+			]
+		);
+
 		$this->add_control(
 			'icon_color',
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .video-popup-icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon i' => 'color: {{VALUE}}',
 				],
 			]
 		);
+
+
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
@@ -418,20 +402,18 @@ class VideoIcon extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .rt-video-icon .video-popup-icon',
+				'selector' => '{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon',
 			]
 		);
 
-		$this->add_control(
-			'animation_border_color',
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
 			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Animate Border Color', 'kariez-core' ),
-				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .video-popup-icon::before, {{WRAPPER}} .rt-video-icon .video-popup-icon::after' => 'border-color: {{VALUE}}',
-				],
+				'name' => 'button_border',
+				'selector' => '{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon',
 			]
 		);
+
 
 		$this->end_controls_tab();
 
@@ -448,7 +430,7 @@ class VideoIcon extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Icon Color Hover', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .video-popup-icon:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-video-icon:hover .icon-box .video-popup-icon i, {{WRAPPER}} .rt-video-icon .video-popup-icon:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -464,20 +446,18 @@ class VideoIcon extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .rt-video-icon .video-popup-icon:hover',
+				'selector' => '{{WRAPPER}} .rt-video-icon .icon-box .video-popup-icon:hover',
 			]
 		);
 
-		$this->add_control(
-			'animation_border_color_hover',
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
 			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Animate Border Color Hover', 'kariez-core' ),
-				'selectors' => [
-					'{{WRAPPER}} .rt-video-icon .video-popup-icon:hover::before, {{WRAPPER}} .rt-video-icon .video-popup-icon:hover::after' => 'border-color: {{VALUE}}',
-				],
+				'name' => 'button_hover_border',
+				'selector' => '{{WRAPPER}} .rt-video-icon:hover .icon-box',
 			]
 		);
+
 
 		$this->end_controls_tab();
 

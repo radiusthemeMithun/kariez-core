@@ -53,7 +53,8 @@ class Project extends ElementorBase {
 					'layout-2' => esc_html__( 'Project Grid 02', 'kariez-core' ),
 					'layout-3' => esc_html__( 'Project Grid 03', 'kariez-core' ),
 					'layout-4' => esc_html__( 'Project Slider 01', 'kariez-core' ),
-					'layout-5' => esc_html__( 'Project Slider 02', 'kariez-core' ),
+					'layout-5' => esc_html__( 'Project Grid 04', 'kariez-core' ),
+					'layout-6' => esc_html__( 'Project Grid 05', 'kariez-core' ),
 
 				],
 				'default'     => 'layout-1',
@@ -94,9 +95,20 @@ class Project extends ElementorBase {
 				'placeholder' => esc_html__( 'Enter Project Limit', 'kariez-core' ),
 				'description' => esc_html__( 'Enter number of team to show.', 'kariez-core' ),
 				'default'     => '3',
-//				'condition'  => [
-//					'layout!' => ['layout-5'],
-//				],
+			]
+		);
+
+		$this->add_control(
+			'project_masonary',
+			[
+				'label'        => __( 'Masonary', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'kariez-core' ),
+				'label_off'    => __( 'Off', 'kariez-core' ),
+				'default'      => 'off',
+				'condition'  => [
+					'layout' => 'layout-2',
+				],
 			]
 		);
 
@@ -115,7 +127,7 @@ class Project extends ElementorBase {
 				],
 				'default' => 'g-4',
 				'condition'  => [
-					'layout' => ['layout-1','layout-2','layout-3'],
+					'layout' => ['layout-1','layout-2','layout-3','layout-5','layout-6'],
 				],
 			]
 		);
@@ -199,15 +211,6 @@ class Project extends ElementorBase {
 			]
 		);
 
-        $this->add_control(
-            'project_info_sub_title',
-            [
-                'label'       => esc_html__( 'Highlight Sub Title', 'kariez-core' ),
-                'type'        => Controls_Manager::TEXT,
-                'label_block' => true,
-            ]
-        );
-
 		$this->add_control(
 			'category_display',
 			[
@@ -225,6 +228,17 @@ class Project extends ElementorBase {
 			[
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label'       => esc_html__( 'Content Display', 'kariez-core' ),
+				'label_on'    => esc_html__( 'On', 'kariez-core' ),
+				'label_off'   => esc_html__( 'Off', 'kariez-core' ),
+				'default'     => 'no',
+				'description' => esc_html__( 'Show or Hide Content. Default: off', 'kariez-core' ),
+			]
+		);
+		$this->add_control(
+			'project_number_display',
+			[
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Project Number Display', 'kariez-core' ),
 				'label_on'    => esc_html__( 'On', 'kariez-core' ),
 				'label_off'   => esc_html__( 'Off', 'kariez-core' ),
 				'default'     => 'no',
@@ -269,8 +283,25 @@ class Project extends ElementorBase {
 				'label'       => esc_html__( 'Button Display', 'kariez-core' ),
 				'label_on'    => esc_html__( 'On', 'kariez-core' ),
 				'label_off'   => esc_html__( 'Off', 'kariez-core' ),
-				'default'     => 'yes',
-				'description' => esc_html__( 'Show or Hide Button. Default: On', 'kariez-core' ),
+				'default'     => 'no',
+				'description' => esc_html__( 'Show or Hide Button. Default: Off', 'kariez-core' ),
+				'condition'  => [
+					'layout!' => 'layout-6',
+				],
+			]
+		);
+		$this->add_control(
+			'read_more_btn',
+			[
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Button Display', 'kariez-core' ),
+				'label_on'    => esc_html__( 'On', 'kariez-core' ),
+				'label_off'   => esc_html__( 'Off', 'kariez-core' ),
+				'default'     => 'no',
+				'description' => esc_html__( 'Show or Hide Button. Default: Off', 'kariez-core' ),
+				'condition'  => [
+					'layout' => 'layout-6',
+				],
 			]
 		);
 
@@ -286,11 +317,11 @@ class Project extends ElementorBase {
 		$this->add_responsive_control(
 			'box_item_radius',
 			[
-				'label'      => __( 'Box Radius', 'kariez-core' ),
+				'label'      => __( 'Image Radius', 'kariez-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .rt-project-default .project-item .project-thumbs' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .rt-project-default .project-item .project-thumbs .post-thumbnail-wrap .post-thumbnail .post-thumb-link img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
 				'separator' => 'before',
 			]
@@ -327,6 +358,9 @@ class Project extends ElementorBase {
 					'default' => esc_html__( 'Default', 'kariez-core' ),
 					'popup' => esc_html__( 'Image Popup', 'kariez-core' ),
 				),
+				'condition'  => [
+					'layout!' => 'layout-6',
+				],
 				'default'     => 'default',
 			]
 		);
@@ -412,6 +446,48 @@ class Project extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Date Settings
+
+		$this->start_controls_section(
+			'post_date_style',
+			[
+				'label' => esc_html__( 'Post Date Style', 'kariez-core' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'post_date_typo',
+				'label'    => esc_html__( 'Typo', 'kariez-core' ),
+				'selector' => '{{WRAPPER}} .rt-project-default .project-date',
+			]
+		);
+
+		$this->add_control(
+			'post_date_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-date' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'post_date_margin',
+			[
+				'label' => __('Margin', 'kariez-core'),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => ['px'],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-date' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 
 		// Category Settings
 		$this->start_controls_section(
@@ -458,7 +534,7 @@ class Project extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Background Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .project-cat a' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .project-cat' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -468,7 +544,7 @@ class Project extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Background Hover Color', 'kariez-core' ),
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .project-cat a:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .project-cat:hover' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -497,8 +573,16 @@ class Project extends ElementorBase {
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .project-cat a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .rt-project-default .project-cat' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'cat_border',
+				'label' => __('Border', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-project-default .project-cat',
 			]
 		);
 		$this->add_responsive_control(
@@ -508,7 +592,7 @@ class Project extends ElementorBase {
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .project-cat a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .rt-project-default .project-cat ' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
 			]
 		);
@@ -565,6 +649,131 @@ class Project extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Read More Settings
+		//==============================================================
+
+		$this->start_controls_section(
+			'read_more_settings',
+			[
+				'label' => esc_html__('Read More Settings', 'kariez-core'),
+				'tab' => Controls_Manager::TAB_STYLE,
+				'condition'   => [
+					'read_more_btn' => 'yes',
+					'layout' => 'layout-6',
+				],
+			]
+		);
+		$this->add_control(
+			'read_more_text',
+			[
+				'label'       => esc_html__( 'Text', 'kariez-core' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'default'     => 'Read More',
+			]
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'read_more_typography',
+				'label' => esc_html__('Typography', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-project-default .project-btn',
+			]
+		);
+		$this->add_control(
+			'read_more_color',
+			[
+				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'kariez-core'),
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-btn' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'read_more_hover_color',
+			[
+				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'kariez-core'),
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-btn:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'read_more_margin',
+			[
+				'label' => __('Margin', 'kariez-core'),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => ['px'],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'read_more_line_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Line Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-btn:before' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'read_more_line_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Line Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .project-btn:before' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'read_more_line_background',
+				'label' => __('Line Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Line Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-project-default .project-btn:before',
+			]
+		);
+
+		$this->end_controls_section();
+
 		// Button More Settings
 		//==============================================================
 		$this->start_controls_section(
@@ -574,19 +783,63 @@ class Project extends ElementorBase {
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition'   => [
 					'button_display' => 'yes',
+					'layout!' => 'layout-6',
 				],
 			]
 		);
 
 		$this->add_control(
-			'button_icon',
+			'button_text',
 			[
-				'label'            => __( 'Choose Icon', 'kariez-core' ),
-				'type'      => \Elementor\Controls_Manager::ICONS,
-				'fa4compatibility' => 'icon',
-				'default'          => [
-					'value'   => 'icon-rt-right-arrow',
-					'library' => 'solid',
+				'label'       => esc_html__( 'Button Text', 'kariez-core' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'default'     => 'View Details',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -619,7 +872,7 @@ class Project extends ElementorBase {
 			[
 				'name' => 'button_typography',
 				'label' => esc_html__('Typography', 'kariez-core'),
-				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn i',
+				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn',
 			]
 		);
 
@@ -654,9 +907,7 @@ class Project extends ElementorBase {
 				'type' => Controls_Manager::COLOR,
 				'label' => esc_html__('Color', 'kariez-core'),
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .rt-button .btn' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-project-default .rt-button .btn i' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-project-default .rt-button .btn path' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .rt-button .btn .button-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -672,7 +923,7 @@ class Project extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn:before',
+				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn',
 			]
 		);
 
@@ -710,9 +961,7 @@ class Project extends ElementorBase {
 				'type' => Controls_Manager::COLOR,
 				'label' => esc_html__('Color', 'kariez-core'),
 				'selectors' => [
-					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover i' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover path' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover .button-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -728,7 +977,7 @@ class Project extends ElementorBase {
 						'label' => esc_html__( 'Background', 'kariez-core' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn:after',
+				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn:hover:before',
 			]
 		);
 
@@ -756,6 +1005,186 @@ class Project extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Button Icon
+		$this->start_controls_section(
+			'icon_settings',
+			[
+				'label' => esc_html__( ' Button Icon Settings', 'kariez-core' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition'  => [
+					'layout!' => 'layout-6',
+				],
+			]
+		);
+
+		$this->add_control(
+			'button_icon',
+			[
+				'label'            => __( 'Choose Icon', 'kariez-core' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'default'          => [
+					'value'   => 'icon-arrow-right',
+					'library' => 'solid',
+				],
+			]
+		);
+		$this->add_control(
+			'icon_size',
+			[
+				'label'      => __( 'Icon Size', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 40,
+						'step' => 1,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 14,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn i'   => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-project-default .rt-button .btn svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_control(
+			'button_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .rt-button .btn svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'button_icon_hover_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Hover Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-project-default .rt-button .btn:hover svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'icon_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Space', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn' => 'column-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'icon_shape_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn .btn-round-shape' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'before',
+			]
+		);
+		$this->add_responsive_control(
+			'icon_shape_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn .btn-round-shape' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_color',
+				'label' => __('Icon Shape Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn .btn-round-shape',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_hover_color',
+				'label' => __('Icon Shape Hover Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Hover Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-project-default .rt-button .btn:hover .btn-round-shape',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_icon_shape_radius',
+			[
+				'label'              => __( 'Icon Shape Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ '%', 'px'  ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-project-default .rt-button .btn .btn-round-shape' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+
+		$this->end_controls_section();
+
 		// Slider setting
 		$this->start_controls_section(
 			'slider_style',
@@ -763,7 +1192,7 @@ class Project extends ElementorBase {
 				'label' => esc_html__( 'Slider Style', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'layout' => ['layout-4', 'layout-5'],
+					'layout' => ['layout-4'],
 				],
 			]
 		);
@@ -1170,7 +1599,7 @@ class Project extends ElementorBase {
 				'label' => esc_html__( 'Number of Responsive Columns', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition'  => [
-					'layout' => ['layout-1','layout-2','layout-3'],
+					'layout' => ['layout-1','layout-2','layout-3', 'layout-5', 'layout-6'],
 				],
 			]
 		);
@@ -1229,7 +1658,7 @@ class Project extends ElementorBase {
 			[
 				'label' => __( 'Slider Grid', 'kariez-core' ),
 				'condition' => [
-					'layout' => ['layout-8', 'layout-9', 'layout-10', 'layout-11', 'layout-12'],
+					'layout' => ['layout-4'],
 				],
 			]
 		);
@@ -1316,6 +1745,21 @@ class Project extends ElementorBase {
 			[
 				'type'    => Controls_Manager::SELECT2,
 				'label'   => esc_html__( 'Phones: > 425px', 'kariez-core' ),
+				'default' => '1',
+				'options' => array(
+					'1' => esc_html__( '1', 'kariez-core' ),
+					'2' => esc_html__( '2', 'kariez-core' ),
+					'3' => esc_html__( '3',  'kariez-core' ),
+					'4' => esc_html__( '4',  'kariez-core' ),
+					'5' => esc_html__( '5',  'kariez-core' ),
+				),
+			]
+		);
+		$this->add_control(
+			'xs_mobile',
+			[
+				'type'    => Controls_Manager::SELECT2,
+				'label'   => esc_html__( 'Phones: > 320px', 'kariez-core' ),
 				'default' => '1',
 				'options' => array(
 					'1' => esc_html__( '1', 'kariez-core' ),
@@ -1564,6 +2008,7 @@ class Project extends ElementorBase {
 			'speed'      =>$data['slider_autoplay_speed'],
 			'breakpoints' =>array(
 				'0'    =>array('slidesPerView' =>1),
+				'320'    =>array('slidesPerView' =>$data['xs_mobile']),
 				'425'    =>array('slidesPerView' =>$data['sm_mobile']),
 				'576'    =>array('slidesPerView' =>$data['mobile']),
 				'768'    =>array('slidesPerView' =>$data['tablet']),
@@ -1575,10 +2020,11 @@ class Project extends ElementorBase {
 		);
 
 		switch ( $data['layout'] ) {
-
+			case 'layout-6':
+				$template = 'view-5';
+				break;
 			case 'layout-5':
-				$data['swiper_data'] = json_encode( $swiper_data );
-				$template = 'view-slider-2';
+				$template = 'view-4';
 				break;
 			case 'layout-4':
 				$data['swiper_data'] = json_encode( $swiper_data );

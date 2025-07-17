@@ -23,13 +23,14 @@
  * @var $project_thumbnail_size     string
  * @var $grayscale_display          string
  * @var $button_icon                string
- * @var $all_button                 string
  * @var $link_popup                 string
- * @var $tab_separator_display      string
  * @var $animation                  string
  * @var $animation_effect           string
  * @var $delay                      string
  * @var $duration                   string
+ * @var $button_text                string
+ * @var $read_more_btn              string
+ * @var $read_more_text             string
  */
 
 use Elementor\Icons_Manager;
@@ -62,38 +63,20 @@ $thumb_size = '';
 if( $project_thumbnail_size ) {
 	$thumb_size = $project_thumbnail_size;
 } else {
-	$thumb_size = 'kariez-size6';
+	$thumb_size = 'kariez-size7';
 }
 
 $query = new WP_Query( $args );
 $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm} col-xs-{$col_xs}";
 
 ?>
-<div class="rt-project-default rt-project-multi-layout-2 project-grid-<?php echo esc_attr( $layout );?> <?php if ( $all_button == 'hide' ) {?>hide-all<?php } ?> rt-isotope-wrapper">
-    <div class="rt-project-tab rt-isotope-tab">
-        <div class="case-cat-tab <?php if ( $tab_separator_display == 'yes' ) { ?>separator<?php } ?>">
-			<?php if ( $all_button == 'show' ) { ?>
-                <a href="#" data-filter="*" class="current"><?php esc_html_e( 'See All', 'kariez-core' );?></a>
-			<?php } ?>
-			<?php
-			$terms = get_terms( array(
-				'taxonomy' => 'rt-project-category',
-				'include'  => $cat_id,
-				'orderby' => 'include',
-			) );
-			foreach( $terms as $term ) {
-				?>
-                <a href="#" data-filter=".tab-<?php echo esc_attr($term->slug); ?>"><?php echo esc_html($term->name); ?></a>
-				<?php
-			}
-			?>
-        </div>
-    </div>
-    <div class="row <?php echo esc_attr( $item_space );?> rt-isotope-content rt-masonry-grid">
+<div class="rt-project-default rt-project-multi-layout-default project-grid-<?php echo esc_attr( $layout );?>">
+	<div class="row <?php echo esc_attr( $item_space );?>">
 		<?php $ade = $delay; $adu = $duration; if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$id = get_the_ID();
+
 				if ( $content_type == 'content' ) {
 					$content = apply_filters( 'the_content', get_the_content() );
 				}
@@ -103,21 +86,16 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
 				$content = wp_trim_words( $content, $content_count, '' );
 				$content = "$content";
 
-                $item_terms = get_the_terms( get_the_ID(), 'rt-project-category' );
-                $term_links = array();
-                $terms_of_item = '';
-                foreach ( $item_terms as $term ) {
-                    $terms_of_item .= 'tab-'.$term->slug . ' ';
-                }
-
 				?>
-                <div class="<?php echo esc_attr( $col_class );?> rt-grid-item <?php echo esc_attr( $terms_of_item ); ?>">
-                    <div class="project-item  <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms">
+                <div class="<?php echo esc_attr( $col_class );?> <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms">
+                    <div class="project-item">
                         <div class="project-thumbs <?php if( empty( $button_display ) ) { ?>shape-hidden<?php } ?> <?php echo esc_attr( $grayscale_display );?>">
-                            <?php kariez_post_thumbnail( esc_attr( $thumb_size ) ); ?>
-                            <div class="project-content">
-                                <div class="project-info">
-                                    <<?php echo esc_attr( $title_tag ) ?> class="project-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></<?php echo esc_attr( $title_tag ) ?>>
+	                        <?php kariez_post_thumbnail( esc_attr( $thumb_size ) ); ?>
+                            
+                        </div>
+                        <div class="project-content">
+                            <div class="project-info">
+
                                 <?php if ( $category_display ) { ?>
                                     <span class="project-cat"><?php
                                         $i = 1;
@@ -127,26 +105,23 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
                                                 $link = get_term_link( $term_list->term_id, 'rt-project-category' ); ?>
                                                 <?php if ( $i > 1 ){ echo esc_html( ', ' ); } ?><a href="<?php echo esc_url( $link ); ?>">
                                                 <?php echo esc_html( $term_list->name ); ?></a><?php $i++; } } ?></span>
-                                <?php } if ( $content_display == 'yes' ) { ?>
-                                    <div class="project-excerpt"><?php kariez_html( $content , false ); ?></div>
                                 <?php } ?>
+
+                                <<?php echo esc_attr( $title_tag ) ?> class="project-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></<?php echo esc_attr( $title_tag ) ?>>
+
+	                        <div class="project-hover-content">
+		                        <?php if ( $content_display == 'yes' ) { ?>
+                                    <div class="project-excerpt"><?php kariez_html( $content , false ); ?></div>
+		                        <?php } ?>
+		                        <?php if ($read_more_btn == 'yes') {  ?>
+                                    <a class="project-btn" href="<?php the_permalink();?>" aria-label="button link">
+                                        <span class="button-text"><?php kariez_html( $read_more_text,  false); ?></span>
+                                    </a>
+		                        <?php } ?>
                             </div>
-                            <?php if( $button_display ) { ?>
-                                <div class="rt-button">
-                                    <?php if( $link_popup == 'popup' ) { ?>
-                                        <a class="btn button-2" href="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>"
-                                           data-elementor-open-lightbox="yes"
-                                           data-elementor-lightbox-slideshow="1"
-                                           data-elementor-lightbox-title="<?php echo get_the_title(); ?>">
-                                            <?php Icons_Manager::render_icon( $button_icon ); ?></a>
-                                    <?php } else { ?>
-                                        <a class="btn button-3" href="<?php the_permalink();?>" aria-label="project link"><?php Icons_Manager::render_icon( $button_icon ); ?></a>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             <?php $ade = $ade + 200; $adu = $adu + 0; } ?>
 	<?php wp_reset_postdata(); ?>

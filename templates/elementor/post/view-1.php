@@ -43,15 +43,15 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                 <div class="rt-post-meta">
                     <ul class="entry-meta">
 	                    <?php if ( $author_visibility ) { ?>
-                            <li><i class="icon-user-alt"></i><?php echo kariez_posted_by(esc_html__( 'by ', 'kariez-core' )); ?></li>
+                            <li><i class="icon-user"></i><?php echo kariez_posted_by(esc_html__( 'by ', 'kariez-core' )); ?></li>
 	                    <?php } if ( $date_visibility ) { ?>
                             <li><i class="icon-calendar"></i><?php echo kariez_posted_on(); ?></li>
 	                    <?php } if ( $comment_visibility ) { ?>
-                            <li><i class="icon-comments"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
+                            <li><i class="icon-comment"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
 	                    <?php } if ( $reading_visibility ) { ?>
                             <li><i class="icon-clock"></i><?php echo kariez_reading_time(); ?></li>
 	                    <?php } if ( $views_visibility ) { ?>
-                            <li><i class="icon-quick-view"></i><?php echo rt_post_views(); ?></li>
+                            <li><i class="icon-eye"></i><?php echo rt_post_views(); ?></li>
 	                    <?php } ?>
                     </ul>
                 </div>
@@ -64,8 +64,11 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
 	        <?php } ?>
             <?php if( 'visible' === $readmore_visibility ) { ?>
             <div class="rt-button entry-footer">
-                <a class="btn button-2" href="<?php the_permalink();?>">
-	                <?php echo esc_html( $readmore_text );?><i class="icon-arrow-right"></i>
+                <a class="btn button-3" href="<?php the_permalink();?>">
+                    <span class="button-text"><?php echo esc_html( $readmore_text );?></span>
+                    <span class="btn-round-shape">
+                        <i class="icon-arrow-right"></i>
+                    </span>
                 </a>
             </div>
             <?php } ?>

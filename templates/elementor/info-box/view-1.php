@@ -26,11 +26,6 @@
  * @var $animation_effect           string
  * @var $delay                      string
  * @var $duration                   string
- * @var $scroll_animation           string
- * @var $range_one                  string
- * @var $range_two                  string
- * @var $x_range                    string
- * @var $y_range                    string
  */
 
 $attr = '';
@@ -40,12 +35,9 @@ if ( !empty( $link['url'] ) ) {
 	$attr .= !empty( $link['nofollow'] ) ? ' rel="nofollow"' : '';
 	$attr .= ' aria-label="info link"';
 }
-$range_one = ( $scroll_animation == 'yes' ) ? $range_one : '';
-$range_two = ( $scroll_animation == 'yes' ) ? $range_two : '';
-
 ?>
 
-<div class="rt-info-box rt-info-<?php echo esc_attr( $layout ) ?>" data-parallax='{"<?php echo esc_attr( $x_range );?>" : <?php echo esc_attr( $range_one );?>, "<?php echo esc_attr( $y_range );?>" : <?php echo esc_attr( $range_two );?>}'>
+<div class="rt-info-box rt-info-<?php echo esc_attr( $layout ) ?>">
     <div class="info-box <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $duration );?>ms">
         <?php if( $image_icon['id'] || $info_icon ) { ?>
         <div class="info-icon-holder icon-holder">
@@ -82,11 +74,11 @@ $range_two = ( $scroll_animation == 'yes' ) ? $range_two : '';
 
 			<?php if ( $show_read_more_btn ) : ?>
                 <div class="rt-button <?php if( $show_btn_text ) { ?>button-hover-visibility<?php } ?>">
-                    <a class="btn button-4" <?php echo $attr; ?>>
-                        <span class="btn-text"><?php echo esc_html( $read_more_btn_text );?></span>
-	                    <?php if( $show_btn_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon, [ 'aria-hidden' => 'true' ] ) ; ?>
-
-                        <?php } ?>
+                    <a class="btn" <?php echo $attr; ?>>
+                        <span class="button-text"><?php echo esc_html( $read_more_btn_text );?></span>
+                        <span class="btn-round-shape">
+                            <?php if( $show_btn_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+                        </span>
                     </a>
                 </div>
 			<?php endif; ?>

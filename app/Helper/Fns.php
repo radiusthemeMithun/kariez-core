@@ -116,7 +116,7 @@ class Fns {
 		$nav_list      = [];
 		$nav_list['0'] = __( 'Select A Menu', 'kariez-core' );
 		foreach ( (array) $nav_menus as $_nav_menu ) {
-			$nav_list[ $_nav_menu->term_id ] = $_nav_menu->name;
+			$nav_list[ $_nav_menu->slug ] = $_nav_menu->name;
 		}
 
 		return $nav_list;

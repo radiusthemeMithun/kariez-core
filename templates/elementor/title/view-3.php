@@ -17,9 +17,6 @@
  * @var $delay                          string
  * @var $duration                       string
  * @var $list_layout                    string
- * @var $highlight_sub_title            string
- * @var $main_stroke_tag                string
- * @var $stroke_title                   string
  * @var $title_layout                   string
  *
  */
@@ -33,11 +30,8 @@ use Elementor\Icons_Manager;
 		<?php if ( $top_sub_title ): ?>
 			<div class="top-sub-title-wrap <?php echo esc_attr( $animation );?>
 			<?php echo esc_attr( $animation_effect );?>" data-wow-delay="200ms" data-wow-duration="1200ms">
-                <div class="top-sub-title  <?php echo esc_attr( $sub_title_style );?>">
+                <div class="top-sub-title has-animation <?php echo esc_attr( $sub_title_style );?>">
                     <?php echo esc_html( $top_sub_title ); ?>
-                    <?php if ($highlight_sub_title): ?>
-                        <span class="highlight-subtitle"> <?php echo esc_html( $highlight_sub_title ); ?></span>
-                    <?php endif; ?>
                 </div>
 			</div>
 		<?php endif; ?>
@@ -47,27 +41,18 @@ use Elementor\Icons_Manager;
         <div class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="400ms" data-wow-duration="1200ms">
             <<?php echo esc_attr( $main_title_tag ) ?> class="main-title">
             <?php kariez_html( $title, 'allow_title' );?>
+        </<?php echo esc_attr( $main_title_tag ) ?>>
         </div>
         <?php endif; ?>
-
-        <?php if ( $stroke_title ): ?>
-            <div class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="400ms" data-wow-duration="1200ms">
-                <<?php echo esc_attr( $main_stroke_tag ) ?> class="stroke-title">
-                <?php kariez_html( $stroke_title, 'allow_stroke' );?>
-            </div>
-        <?php endif; ?>
-
-        <!--Description-->
-        <?php if ( $description ): ?>
+		<?php if ( $description ): ?>
             <div class="description <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="600ms" data-wow-duration="1200ms"><?php kariez_html( $description, 'allow_title' );?></div>
-        <?php endif; ?>
-        <?php if ( $feature_lists && $show_feature_list ) { ?>
+		<?php endif; ?>
+		<?php if ( $feature_lists && $show_feature_list ) { ?>
             <ul class="feature-list <?php echo esc_attr( $list_layout );?> <?php echo esc_attr( $list_column );?>">
-                <?php $ade = $delay; $adu = $duration; foreach ( $feature_lists as $feature): ?>
+				<?php $ade = $delay; $adu = $duration; foreach ( $feature_lists as $feature): ?>
                     <li class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms"><?php if( $feature['list_icon'] ) { ?><span class="icon"><?php Icons_Manager::render_icon( $feature['list_icon'] ); ?></span><?php } ?><?php echo esc_html( $feature['list_text'] ); ?></li>
-                    <?php $ade = $ade + 200; $adu = $adu + 0; endforeach; ?>
+					<?php $ade = $ade + 200; $adu = $adu + 0; endforeach; ?>
             </ul>
-        <?php } ?>
-
+		<?php } ?>
     </div>
 </div>

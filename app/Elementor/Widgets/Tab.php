@@ -94,6 +94,7 @@ class Tab extends ElementorBase {
 			]
 		);
 
+
 		$this->add_control(
 			'lists',
 			[

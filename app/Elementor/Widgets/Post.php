@@ -209,22 +209,22 @@ class Post extends ElementorBase {
             ],
         );
 
-		$this->add_control(
-			'categories',
-			[
-				'label'       => __( 'Choose Categories', 'kariez-core' ),
-				'type'        => \Elementor\Controls_Manager::SELECT2,
-				'multiple'    => true,
-				'options'     => rt_category_list(),
-				'label_block' => true,
+//		$this->add_control(
+//			'categories',
+//			[
+//				'label'       => __( 'Choose Categories', 'kariez-core' ),
+//				'type'        => \Elementor\Controls_Manager::SELECT2,
+//				'multiple'    => true,
+//				'options'     => rt_category_list(),
+//				'label_block' => true,
 //                'minimum_input_length' => 3,
 //                'maximum_selection_length' => -1,
-				'condition'   => [
-					'post_source' => 'by_category',
-				],
-				'description' => __( 'Select post category\'s.', 'kariez-core' ),
-			]
-		);
+//				'condition'   => [
+//					'post_source' => 'by_category',
+//				],
+//				'description' => __( 'Select post category\'s.', 'kariez-core' ),
+//			]
+//		);
 
 		$this->add_control(
 			'tags',

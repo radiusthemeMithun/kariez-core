@@ -25,7 +25,7 @@ class Contact_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$defaults = [
             'phone'   => kariez_option( 'rt_phone' ),
-            'website' => kariez_option( 'rt_website' ),
+            'time' => kariez_option( 'rt_open_time' ),
 			'address' => kariez_option( 'rt_contact_address' ),
 			'mail'    => kariez_option( 'rt_email' ),
             'label-text' => kariez_option( 'rt-label' ),
@@ -138,7 +138,7 @@ class Contact_Widget extends WP_Widget {
 		$instance['address']     = ( ! empty( $new_instance['address'] ) ) ? strip_tags( $new_instance['address'] ) : '';
 		$instance['mail']        = ( ! empty( $new_instance['mail'] ) ) ? strip_tags( $new_instance['mail'] ) : '';
 		$instance['phone']       = ( ! empty( $new_instance['phone'] ) ) ? strip_tags( $new_instance['phone'] ) : '';
-		$instance['website']     = ( ! empty( $new_instance['website'] ) ) ? strip_tags( $new_instance['website'] ) : '';
+		$instance['time']     = ( ! empty( $new_instance['time'] ) ) ? strip_tags( $new_instance['time'] ) : '';
         $instance['label-text']     = ( ! empty( $new_instance['label-text'] ) ) ? strip_tags( $new_instance['label-text'] ) : '';
         $instance['label-text-2']     = ( ! empty( $new_instance['label-text-2'] ) ) ? strip_tags( $new_instance['label-text-2'] ) : '';
         $instance['label-text-3']     = ( ! empty( $new_instance['label-text-3'] ) ) ? strip_tags( $new_instance['label-text-3'] ) : '';

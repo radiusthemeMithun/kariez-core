@@ -1475,6 +1475,18 @@ class InfoSlider extends ElementorBase {
                 ),
             ]
         );
+		$this->add_control(
+			'xs_mobile',
+			[
+				'type'    => Controls_Manager::SELECT2,
+				'label'   => esc_html__( 'Phones: > 320px', 'kariez-core' ),
+				'default' => '1',
+				'options' => array(
+					'1' => esc_html__( '1', 'kariez-core' ),
+					'2' => esc_html__( '2', 'kariez-core' ),
+				),
+			]
+		);
 
         $this->end_controls_section();
 
@@ -1716,6 +1728,7 @@ class InfoSlider extends ElementorBase {
             'speed'      =>$data['slider_autoplay_speed'],
             'breakpoints' =>array(
                 '0'    =>array('slidesPerView' =>1),
+                '320'    =>array('slidesPerView' =>$data['xs_mobile']),
                 '425'    =>array('slidesPerView' =>$data['sm_mobile']),
                 '576'    =>array('slidesPerView' =>$data['mobile']),
                 '768'    =>array('slidesPerView' =>$data['tablet']),

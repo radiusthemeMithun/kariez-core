@@ -33,18 +33,17 @@ class SiteLogo extends ElementorBase {
 			]
 		);
 
-        $this->add_control(
-            'layout',
-            [
-                'label'   => esc_html__( 'Layout', 'kariez-core' ),
-                'type'    => Controls_Manager::SELECT,
-                'default' => 'layout-1',
-                'options' => [
-                    'layout-1' => __( 'Logo', 'kariez-core' ),
-                    'layout-2' => __( 'Logo With Hamburger', 'kariez-core' ),
-                ],
-            ]
-        );
+//        $this->add_control(
+//            'layout',
+//            [
+//                'label'   => esc_html__( 'Layout', 'kariez-core' ),
+//                'type'    => Controls_Manager::SELECT,
+//                'default' => 'layout-1',
+//                'options' => [
+//                    'layout-1' => __( 'Logo', 'kariez-core' ),
+//                ],
+//            ]
+//        );
 
 		$this->add_control(
 			'logo_mode',
@@ -151,166 +150,13 @@ class SiteLogo extends ElementorBase {
 			]
 		);
 
-
 		$this->end_controls_section();
-
-        // Hamburger Style
-        $this->start_controls_section(
-            'hamburger_style',
-            [
-                'label' => __( 'Hamburger Style', 'kariez-core' ),
-                'tab'   => Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'hamburger',
-            [
-                'label'     => esc_html__( 'Hamburg menu', 'kariez-core' ),
-                'type'      => Controls_Manager::SWITCHER,
-                'label_on'  => esc_html__( 'On', 'kariez-core' ),
-                'label_off' => esc_html__( 'Off', 'kariez-core' ),
-                'default'   => 'yes',
-            ]
-        );
-        $this->add_control(
-            'hamburger_color',
-            [
-                'type'      => Controls_Manager::COLOR,
-                'label'     => esc_html__( 'Color', 'kariez-core' ),
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .btn-hamburger span' => 'background-color: {{VALUE}}',
-                ],
-                'condition'     => [
-                    'hamburger' => 'yes',
-                ],
-            ]
-        );
-        $this->add_control(
-            'hamburger_hover_color',
-            [
-                'type'      => Controls_Manager::COLOR,
-                'label'     => esc_html__( 'Hover Color', 'kariez-core' ),
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar:hover .btn-hamburger span' => 'background-color: {{VALUE}}',
-                ],
-                'condition'     => [
-                    'hamburger' => 'yes',
-                ],
-            ]
-        );
-        $this->add_control(
-            'hamburger_bg_color',
-            [
-                'type'      => Controls_Manager::COLOR,
-                'label'     => esc_html__( 'Background Color', 'kariez-core' ),
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar' => 'background-color: {{VALUE}}',
-                ],
-                'condition'     => [
-                    'hamburger' => 'yes',
-                ],
-            ]
-        );
-        $this->add_control(
-            'hamburger_hover_bg_color',
-            [
-                'type'      => Controls_Manager::COLOR,
-                'label'     => esc_html__( 'Hover Background Color', 'kariez-core' ),
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar:hover' => 'background-color: {{VALUE}}',
-                ],
-                'condition'     => [
-                    'hamburger' => 'yes',
-                ],
-            ]
-        );
-        $this->add_responsive_control(
-            'hamburger_radius',
-            [
-                'label'              => __( 'Radius', 'kariez-core' ),
-                'type'               => Controls_Manager::DIMENSIONS,
-                'size_units'         => [ 'px' ],
-                'selectors'          => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-                ],
-                'separator' => 'before',
-            ]
-        );
-        $this->add_responsive_control(
-            'hamburger_width',
-            [
-                'type'    => Controls_Manager::SLIDER,
-                'mode'          => 'responsive',
-                'label'   => esc_html__( 'Width', 'kariez-core' ),
-                'size_units' => [ '%', 'px' ],
-                'range' => [
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 0,
-                        'max' => 500,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar .btn-hamburger span' => 'width: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'hamburger_height',
-            [
-                'type'    => Controls_Manager::SLIDER,
-                'mode'          => 'responsive',
-                'label'   => esc_html__( 'Height', 'kariez-core' ),
-                'size_units' => [ '%', 'px' ],
-                'range' => [
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => 0,
-                        'max' => 200,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar .btn-hamburger span' => 'height: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-        $this->add_group_control(
-            \Elementor\Group_Control_Border::get_type(),
-            [
-                'name' => 'hamburger_border',
-                'selector' => '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar',
-            ]
-        );
-
-        $this->add_group_control(
-            \Elementor\Group_Control_Box_Shadow::get_type(),
-            [
-                'name' => 'hamburger_shadow',
-                'label' => __('Box Shadow', 'kariez-core'),
-                'selector' => '{{WRAPPER}} .branding-wrap ul .ham-burger .menu-bar',
-            ]
-        );
-
-        $this->end_controls_section();
-
 
 	}
 
 	protected function render() {
 		$data = $this->get_settings();
-
 		$template = 'view-1';
-        if ( 'layout-2' == $data['layout'] ) {
-            $template = 'view-2';
-        }
 
 		Fns::get_template( "elementor/site-logo/$template", $data );
 	}

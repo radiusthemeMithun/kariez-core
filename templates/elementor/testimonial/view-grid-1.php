@@ -43,7 +43,7 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
                                 } else {
                                     $full = 'deactive';
                                 }
-                                echo '<li class="has-rating"><i class="icon-star-fill '.$full.'"></i></li>';
+                                echo '<li class="has-rating"><i class="icon-star'.$full.'"></i></li>';
                             } ?>
                         </ul>
                     <?php } ?>

@@ -46,6 +46,7 @@ class Image extends ElementorBase {
 				'options'   => [
 					'layout-1' => __( 'Layout 01', 'kariez-core' ),
 					'layout-2' => __( 'Layout 02', 'kariez-core' ),
+					'layout-3' => __( 'Layout 03', 'kariez-core' ),
 				],
 				'default'     => 'layout-1',
 			]
@@ -74,9 +75,6 @@ class Image extends ElementorBase {
 					'{{WRAPPER}} .rt-image-layout' => 'text-align: {{VALUE}};',
 				],
 				'separator' => 'before',
-				'condition'   => [
-					'layout!' => ['layout-5', 'layout-6'],
-				],
 			]
 		);
 
@@ -100,92 +98,6 @@ class Image extends ElementorBase {
 				'show_label'  => false,
 				'condition'   => [
 					'layout!' => ['layout-5', 'layout-6'],
-				],
-			]
-		);
-
-		// scroll animation
-		$this->add_control(
-			'scroll_animation',
-			[
-				'label'        => __( 'Scroll Animation', 'kariez-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'kariez-core' ),
-				'label_off'    => __( 'Hide', 'kariez-core' ),
-				'return_value' => 'yes',
-				'default'      => 'no',
-				'separator' => 'before',
-			]
-		);
-		$this->add_control(
-			'x_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'y',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'y_range',
-			[
-				'label'       => esc_html__( 'Animation Property', 'kariez-core' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'x' => __( 'x', 'kariez-core' ),
-					'y' => __( 'y', 'kariez-core' ),
-					'z' => __( 'z', 'kariez-core' ),
-					'rotateX' => __( 'rotateX', 'kariez-core' ),
-					'rotateY' => __( 'rotateY', 'kariez-core' ),
-					'rotateZ' => __( 'rotateZ', 'kariez-core' ),
-					'scaleX' => __( 'scaleX', 'kariez-core' ),
-					'scaleY' => __( 'scaleY', 'kariez-core' ),
-					'scaleZ' => __( 'scaleZ', 'kariez-core' ),
-					'scale' => __( 'scale', 'kariez-core' ),
-				],
-				'label_block' => true,
-				'default'     => 'x',
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_one',
-			[
-				'label'       => esc_html__( 'Range Value One', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 50,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
-				],
-			]
-		);
-		$this->add_control(
-			'range_two',
-			[
-				'label'       => esc_html__( 'Range Value Two', 'kariez-core' ),
-				'type'        => Controls_Manager::TEXT,
-				'label_block' => true,
-				'default'     => 0,
-				'condition'   => [
-					'scroll_animation' => ['yes'],
 				],
 			]
 		);
@@ -245,32 +157,6 @@ class Image extends ElementorBase {
 			]
 		);
 
-        $this->add_responsive_control(
-            'position_left',
-            [
-                'type'    => Controls_Manager::SLIDER,
-                'mode'          => 'responsive',
-                'label'   => esc_html__( 'Position Left', 'kariez-core' ),
-                'size_units' => [ '%', 'px' ],
-                'range' => [
-                    '%' => [
-                        'min' => -100,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => -1200,
-                        'max' => 1200,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .rt-image-layout .rt-image' => 'left: {{SIZE}}{{UNIT}};',
-                ],
-                'condition'   => [
-                    'layout' => ['layout-2'],
-                ],
-            ]
-        );
-
 		$this->add_responsive_control(
 			'position_vertical',
 			[
@@ -297,31 +183,6 @@ class Image extends ElementorBase {
 			]
 		);
 
-        $this->add_responsive_control(
-            'position_bottom',
-            [
-                'type'    => Controls_Manager::SLIDER,
-                'mode'          => 'responsive',
-                'label'   => esc_html__( 'Position Bottom', 'kariez-core' ),
-                'size_units' => [ '%', 'px' ],
-                'range' => [
-                    '%' => [
-                        'min' => -100,
-                        'max' => 100,
-                    ],
-                    'px' => [
-                        'min' => -1200,
-                        'max' => 1200,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .rt-image-layout .rt-image' => 'bottom: {{SIZE}}{{UNIT}};',
-                ],
-                'condition'   => [
-                    'layout' => ['layout-2'],
-                ],
-            ]
-        );
 
 		$this->add_control(
 			'animation',
@@ -355,6 +216,7 @@ class Image extends ElementorBase {
 		);
 
 		$this->end_controls_section();
+
 
 		// Image style
 		$this->start_controls_section(
@@ -420,123 +282,27 @@ class Image extends ElementorBase {
 
 		// Image Shape Settings
 		$this->add_control(
-			'image_shape_heading',
+			'image_animation_heading',
 			[
-				'label'     => __( 'Image Shape Settings', 'kariez-core' ),
+				'label'     => __( 'Image Animation', 'kariez-core' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition'     => [
-					'layout' => ['layout-1'],
+					'layout' => ['layout-3'],
 				],
 			]
 		);
 
 		$this->add_control(
-			'image_shape',
+			'animation_scale',
 			[
-				'label'        => __( 'Image Shape', 'kariez-core' ),
+				'label'        => __( 'Animation Scale', 'kariez-core' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'kariez-core' ),
-				'label_off'    => __( 'Hide', 'kariez-core' ),
-				'return_value' => 'yes',
-				'default'      => 'no',
+				'label_on'     => __( 'On', 'kariez-core' ),
+				'label_off'    => __( 'Off', 'kariez-core' ),
+				'default'      => 'off',
 				'condition'     => [
-					'layout' => ['layout-1'],
-				],
-			]
-		);
-
-		$this->add_control(
-			'image_shape_style',
-			[
-				'type'    => Controls_Manager::SELECT2,
-				'label'   => esc_html__( 'Shape Style', 'kariez-core' ),
-				'options' => array(
-					'rt-blr-default rt-blr-shape' 		=> esc_html__( 'Shape 1', 'kariez-core' ),
-					'rt-blr-default rt-blr-shape2' 	=> esc_html__( 'Shape 2', 'kariez-core' ),
-					'rt-blr-default rt-blr-shape3' 	=> esc_html__( 'Shape 3', 'kariez-core' ),
-					'rt-blr-default rt-blr-shape4' 	=> esc_html__( 'Shape 4', 'kariez-core' ),
-				),
-				'default' => 'rt-blr-default rt-blr-shape',
-				'condition'     => [
-					'layout' => ['layout-1'], 'image_shape' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'image_shape_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Shape Color', 'kariez-core' ),
-				'selectors' => [
-					'{{WRAPPER}} .rt-blr-shape' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-blr-default:after' => 'background-color: {{VALUE}}',
-				],
-				'condition'     => [
-					'layout' => ['layout-1'], 'image_shape' => 'yes',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'image_shape_width',
-			[
-				'type'    => Controls_Manager::SLIDER,
-				'label'   => esc_html__( 'Shape Width', 'kariez-core' ),
-				'size_units' => [ '%', 'px' ],
-				'range' => [
-					'%' => [
-						'min' => 0,
-						'max' => 100,
-					],
-					'px' => [
-						'min' => 0,
-						'max' => 1200,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .rt-blr-shape' => 'width: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .rt-blr-default:after' => 'width: {{SIZE}}{{UNIT}};',
-				],
-				'condition'     => [
-					'layout' => ['layout-1'], 'image_shape' => 'yes',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'image_shape_height',
-			[
-				'type'    => Controls_Manager::SLIDER,
-				'label'   => esc_html__( 'Shape Height', 'kariez-core' ),
-				'size_units' => [ '%', 'px' ],
-				'range' => [
-					'%' => [
-						'min' => 0,
-						'max' => 100,
-					],
-					'px' => [
-						'min' => 0,
-						'max' => 1200,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .rt-blr-shape' => 'height: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .rt-blr-default:after' => 'height: {{SIZE}}{{UNIT}};',
-				],
-				'condition'     => [
-					'layout' => ['layout-1'], 'image_shape' => 'yes',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'shape_radius',
-			[
-				'label'      => __( 'Radius', 'kariez-core' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
-					'{{WRAPPER}} .rt-blr-default:after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'layout' => ['layout-3'],
 				],
 			]
 		);

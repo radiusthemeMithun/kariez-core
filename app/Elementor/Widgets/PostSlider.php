@@ -1504,6 +1504,21 @@ class PostSlider extends ElementorBase {
 				),
 			]
 		);
+		$this->add_control(
+			'xs_mobile',
+			[
+				'type'    => Controls_Manager::SELECT2,
+				'label'   => esc_html__( 'Phones: > 320px', 'kariez-core' ),
+				'default' => '1',
+				'options' => array(
+					'1' => esc_html__( '1', 'kariez-core' ),
+					'2' => esc_html__( '2', 'kariez-core' ),
+					'3' => esc_html__( '3',  'kariez-core' ),
+					'4' => esc_html__( '4',  'kariez-core' ),
+					'5' => esc_html__( '5',  'kariez-core' ),
+				),
+			]
+		);
 
 		$this->end_controls_section();
 
@@ -1862,6 +1877,7 @@ class PostSlider extends ElementorBase {
 			'speed'      =>$data['slider_autoplay_speed'],
 			'breakpoints' =>array(
 				'0'    =>array('slidesPerView' =>1),
+				'320'    =>array('slidesPerView' =>$data['xs_mobile']),
 				'425'    =>array('slidesPerView' =>$data['sm_mobile']),
 				'576'    =>array('slidesPerView' =>$data['mobile']),
 				'768'    =>array('slidesPerView' =>$data['tablet']),
@@ -1954,8 +1970,8 @@ class PostSlider extends ElementorBase {
                     </div>
 	                <?php if ( $data['display_arrow']  == 'yes' ) { ?>
                         <div class="swiper-navigation">
-                            <div class="swiper-button swiper-button-prev"><i class="icon-rt-left-arrow"></i></div>
-                            <div class="swiper-button swiper-button-next"><i class="icon-rt-right-arrow"></i></div>
+                            <div class="swiper-button swiper-button-prev"><i class="icon-arrow-left"></i></div>
+                            <div class="swiper-button swiper-button-next"><i class="icon-arrow-right"></i></div>
                         </div>
 	                <?php } ?>
 	                <?php if ( $data['display_pagination'] == 'yes' ) { ?>

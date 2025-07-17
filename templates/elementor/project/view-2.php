@@ -28,6 +28,8 @@
  * @var $animation_effect           string
  * @var $delay                      string
  * @var $duration                   string
+ * @var $button_text                string
+ * @var $project_masonary           string
  */
 
 use Elementor\Icons_Manager;
@@ -68,7 +70,7 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
 
 ?>
 <div class="rt-project-default rt-project-multi-layout-2 project-grid-<?php echo esc_attr( $layout );?>">
-	<div class="row <?php echo esc_attr( $item_space );?>">
+	<div class="row <?php echo esc_attr( $item_space );?> <?php echo $project_masonary ? 'rt-masonry-grid' : ''; ?>">
 		<?php $ade = $delay; $adu = $duration; if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -83,10 +85,18 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
 				$content = "$content";
 
 				?>
-                <div class="<?php echo esc_attr( $col_class );?> <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms">
+                <div class="rt-grid-item <?php echo esc_attr( $col_class );?> <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms">
                     <div class="project-item">
                         <div class="project-thumbs <?php if( empty( $button_display ) ) { ?>shape-hidden<?php } ?> <?php echo esc_attr( $grayscale_display );?>">
-	                        <?php kariez_post_thumbnail( esc_attr( $thumb_size ) ); ?>
+	                        <?php //kariez_post_thumbnail( esc_attr( $thumb_size  ) ); ?>
+
+	                        <?php if( $project_masonary ) {
+		                        kariez_post_thumbnail( esc_attr( 'kariez-size' . rand( 3, 5 ) ) );
+	                        } else {
+		                        kariez_post_thumbnail( esc_attr( $thumb_size ) );
+	                        } ?>
+
+
                             <div class="project-content">
                                 <div class="project-info">
                                     <<?php echo esc_attr( $title_tag ) ?> class="project-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></<?php echo esc_attr( $title_tag ) ?>>
@@ -106,13 +116,21 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
                             <?php if( $button_display ) { ?>
                                 <div class="rt-button">
                                     <?php if( $link_popup == 'popup' ) { ?>
-                                        <a class="btn button-2" href="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>"
+                                        <a class="btn" href="<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>"
                                            data-elementor-open-lightbox="yes"
                                            data-elementor-lightbox-slideshow="1"
                                            data-elementor-lightbox-title="<?php echo get_the_title(); ?>">
-                                            <?php Icons_Manager::render_icon( $button_icon ); ?></a>
+                                            <span class="button-text"><?php echo esc_html( $button_text ); ?></span>
+                                            <span class="btn-round-shape">
+                                            <?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+                                        </span>
                                     <?php } else { ?>
-                                        <a class="btn button-3" href="<?php the_permalink();?>" aria-label="project link"><?php Icons_Manager::render_icon( $button_icon ); ?></a>
+                                        <a class="btn" href="<?php the_permalink();?>" aria-label="button link">
+                                            <span class="button-text"><?php echo esc_html( $button_text ); ?></span>
+                                            <span class="btn-round-shape">
+                                            <?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+                                        </span>
+                                        </a>
                                     <?php } ?>
                                 </div>
                             <?php } ?>

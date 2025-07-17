@@ -16,7 +16,6 @@ class PostMetaController {
 
 	public function __construct() {
 		$this->postmeta = RT_Postmeta::getInstance();
-//		$this->add_meta_box();
 		add_action( 'init', [ $this, 'add_meta_box' ] );
 	}
 

@@ -47,6 +47,8 @@ class Title extends ElementorBase {
 					'layout-1' => __( 'Layout 01', 'kariez-core' ),
 					'layout-2' => __( 'Layout 02', 'kariez-core' ),
                     'layout-3' => __( 'Layout 03', 'kariez-core' ),
+					'layout-4' => __( 'Layout 04', 'kariez-core' ),
+					'layout-5' => __( 'Layout 05', 'kariez-core' ),
 				],
 				'default'     => 'layout-1',
 			]
@@ -62,18 +64,49 @@ class Title extends ElementorBase {
 			]
 		);
 
-        $this->add_control(
-            'highlight_sub_title',
-            [
-                'label'       => esc_html__( 'Highlight Sub Title', 'kariez-core' ),
-                'type'        => Controls_Manager::TEXT,
-                'label_block' => true,
-                'condition'  => [
-                    'title_layout' => 'layout-1',
-                ],
 
-            ]
-        );
+		$this->add_control(
+			'round_small_shape',
+			[
+				'label'        => __( 'Round Shape', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'kariez-core' ),
+				'label_off'    => __( 'Off', 'kariez-core' ),
+				'default'      => 'off',
+				'condition'  => [
+	                 'title_layout' => 'layout-1',
+	             ],
+			]
+		);
+
+		$this->add_control(
+			'arrow_shape',
+			[
+				'label'        => __( 'Arrow Shape', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'kariez-core' ),
+				'label_off'    => __( 'Off', 'kariez-core' ),
+				'default'      => 'off',
+				'condition'  => [
+					'title_layout' => 'layout-4',
+				],
+			]
+		);
+
+		$this->add_control(
+			'double_small_shape',
+			[
+				'label'        => __( 'Double Round Shape', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'kariez-core' ),
+				'label_off'    => __( 'Off', 'kariez-core' ),
+				'default'      => 'off',
+				'condition'  => [
+					'title_layout' => 'layout-5',
+				],
+			]
+		);
+
 
 		$this->add_control(
 			'title',
@@ -86,18 +119,6 @@ class Title extends ElementorBase {
 			]
 		);
 
-        $this->add_control(
-            'stroke_title',
-            [
-                'label'       => esc_html__( 'Stroke Title', 'kariez-core' ),
-                'type'        => Controls_Manager::TEXTAREA,
-                'rows'        => 4,
-                'default'     => __( 'Transportation', 'kariez-core' ),
-                'condition'  => [
-                    'title_layout' => 'layout-3',
-                ],
-            ]
-        );
 
 
 		$this->add_control(
@@ -106,9 +127,6 @@ class Title extends ElementorBase {
 				'label'   => esc_html__( 'Description', 'kariez-core' ),
 				'type'    => Controls_Manager::WYSIWYG,
 				'default'     => __('Manage and streamline operations across multiple locations, sales channels, and employees to improve efficiency and your bottom line.', 'kariez-core' ),
-				'condition'  => [
-					'title_layout' => ['layout-1', 'layout-3'],
-				],
 			]
 		);
 
@@ -144,7 +162,7 @@ class Title extends ElementorBase {
                 'label_off'    => __( 'Off', 'kariez-core' ),
                 'return_value' => 'is-feature',
                 'condition'  => [
-                    'title_layout' => 'layout-1',
+	                'title_layout' => ['layout-1', 'layout-2', 'layout-4', 'layout-5'],
                 ],
             ]
         );
@@ -173,7 +191,7 @@ class Title extends ElementorBase {
                 'title_field' => '{{{ name }}}',
                 'condition'   => [
                     'show_feature_list' => [ 'is-feature' ],
-                    'title_layout' => ['layout-1'],
+                    'title_layout' => ['layout-1', 'layout-2', 'layout-4', 'layout-5'],
                 ],
             ]
         );
@@ -308,70 +326,6 @@ class Title extends ElementorBase {
 
 		$this->end_controls_section();
 
-        // Stroke Title Settings
-        $this->start_controls_section(
-            'stroke_settings',
-            [
-                'label' => esc_html__( 'Stroke Settings', 'kariez-core' ),
-                'tab'   => Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'stroke_color',
-            [
-                'type'      => Controls_Manager::COLOR,
-                'label'     => esc_html__( 'Color', 'kariez-core' ),
-                'selectors' => [
-                    '{{WRAPPER}} .section-title-wrapper .stroke-title' => 'color: {{VALUE}}',
-                ],
-            ]
-        );
-
-
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            [
-                'name'     => 'stroke_typo',
-                'label'    => esc_html__( 'Typo', 'kariez-core' ),
-                'selector' => '{{WRAPPER}} .section-title-wrapper .stroke-title',
-            ]
-        );
-
-
-        $this->add_responsive_control(
-            'stroke_margin',
-            [
-                'label'              => __( 'Margin', 'kariez-core' ),
-                'type'               => Controls_Manager::DIMENSIONS,
-                'size_units'         => [ 'px', '%' ],
-                'selectors'          => [
-                    '{{WRAPPER}} .stroke-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-                ],
-            ]
-        );
-
-
-        $this->add_control(
-            'main_stroke_tag',
-            [
-                'label'   => esc_html__( 'Main Stroke Tag', 'kariez-core' ),
-                'type'    => Controls_Manager::SELECT,
-                'default' => 'h2',
-                'options' => [
-                    'h1' => esc_html__( 'H1', 'kariez-core' ),
-                    'h2' => esc_html__( 'H2', 'kariez-core' ),
-                    'h3' => esc_html__( 'H3', 'kariez-core' ),
-                    'h4' => esc_html__( 'H4', 'kariez-core' ),
-                    'h5' => esc_html__( 'H5', 'kariez-core' ),
-                    'h6' => esc_html__( 'H6', 'kariez-core' ),
-                    'span' => esc_html__( 'Span', 'kariez-core' ),
-                    'div' => esc_html__( 'Div', 'kariez-core' ),
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
 
 		// Top Sub Title
 		$this->start_controls_section(
@@ -442,6 +396,26 @@ class Title extends ElementorBase {
 			]
 		);
 
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name'     => 'top_title_border',
+				'label'    => __( 'Border', 'kariez-core' ),
+				'selector' => '{{WRAPPER}} .section-title-wrapper .top-sub-title',
+			]
+		);
+		$this->add_control(
+			'top_title_radius',
+			[
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'label'     => esc_html__( 'Border Radius', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title ' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
 		$this->add_responsive_control(
 			'top_title_padding',
 			[
@@ -466,6 +440,144 @@ class Title extends ElementorBase {
 			]
 		);
 
+		$this->add_control(
+			'top_title_shape_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Round Shape Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .round-subtitle-shape::before' => 'background-color: {{VALUE}}',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-1',
+				],
+			]
+		);
+		$this->add_control(
+			'top_title_shape_radius',
+			[
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'label'     => esc_html__( 'Round Shape Radius', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .round-subtitle-shape::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-1',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'top_title_shape_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'label'   => esc_html__( 'Round Shape Width', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .round-subtitle-shape::before' => 'width: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-1',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'top_title_shape_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'label'   => esc_html__( 'Round Shape Height', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .round-subtitle-shape::before' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-1',
+				],
+			]
+		);
+
+		$this->add_control(
+			'top_title_line_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Before Line Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .arrow-subtitle-shape::before' => 'background-color: {{VALUE}}',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-4',
+				],
+			]
+		);
+		$this->add_control(
+			'top_title_line_radius',
+			[
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px', '%' ],
+				'label'     => esc_html__( 'Before Line Radius', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .arrow-subtitle-shape::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-4',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'top_title_line_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'label'   => esc_html__( 'Before Line Width', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .arrow-subtitle-shape::before' => 'width: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-4',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'top_title_line_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'label'   => esc_html__( 'Before Line Height', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .arrow-subtitle-shape::before' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'title_layout' => 'layout-4',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 
@@ -476,9 +588,7 @@ class Title extends ElementorBase {
 			[
 				'label' => esc_html__( 'Description & List Settings', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-				'condition'  => [
-					'title_layout' => ['layout-1', 'layout-3']
-				],
+
 			]
 		);
 
@@ -753,6 +863,12 @@ class Title extends ElementorBase {
             case 'layout-3':
                 $template = 'view-3';
                 break;
+			case 'layout-4':
+				$template = 'view-4';
+				break;
+			case 'layout-5':
+				$template = 'view-5';
+				break;
 			default:
 				$template = 'view-1';
 				break;

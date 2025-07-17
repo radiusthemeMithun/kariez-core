@@ -109,6 +109,7 @@ class Testimonial extends ElementorBase {
 					'layout-1' => __( 'Slider', 'kariez-core' ),
 					'layout-2' => __( 'Slider 2', 'kariez-core' ),
                     'layout-3' => __( 'Grid 01', 'kariez-core' ),
+					'layout-4' => __( 'Slider 3', 'kariez-core' ),
 
 				],
 			]
@@ -206,7 +207,7 @@ class Testimonial extends ElementorBase {
 				],
 				'default' => 'g-4',
 				'condition'  => [
-					'layout' => ['layout-3', 'layout-4'],
+					'layout' => ['layout-3'],
 				],
 			]
 		);
@@ -319,14 +320,33 @@ class Testimonial extends ElementorBase {
 			]
 		);
 
-		$this->add_control(
-			'box_bag_color',
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
 			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Background Color', 'kariez-core' ),
-				'selectors' => [
-					'{{WRAPPER}} .rt-testimonial-slider .slider-item' => 'background-color: {{VALUE}}',
+				'name' => 'box_bag_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
 				],
+				'selector' => '{{WRAPPER}} .rt-testimonial-slider .slider-item',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'box_back_color',
+				'label' => __('Clip Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Clip Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-testimonial-slider .slider-item:before',
 			]
 		);
 
@@ -731,8 +751,6 @@ class Testimonial extends ElementorBase {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .rt-testimonial-slider .slider-item .item-rating' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .rt-testimonial-layout-4 .slider-item .item-rating' => 'top: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .rt-testimonial-layout-9 .slider-item .item-rating' => 'top: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -746,7 +764,7 @@ class Testimonial extends ElementorBase {
 				'label' => esc_html__( 'Slider Style', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'layout' => ['layout-1', 'layout-2', 'layout-3', 'layout-4'],
+					'layout' => ['layout-1', 'layout-2', 'layout-4'],
 				],
 			]
 		);
@@ -843,9 +861,6 @@ class Testimonial extends ElementorBase {
 				'selectors' => [
 					'{{WRAPPER}} .swiper-navigation .swiper-button' => 'top: {{SIZE}}{{UNIT}};',
 				],
-				'condition'   => [
-					'display_arrow' => 'yes', 'layout!' => 'layout-4',
-				],
 			]
 		);
 		$this->add_responsive_control(
@@ -868,9 +883,6 @@ class Testimonial extends ElementorBase {
 				'selectors' => [
 					'{{WRAPPER}} .swiper-navigation .swiper-button-prev' => 'left: {{SIZE}}{{UNIT}};',
 				],
-				'condition'   => [
-					'display_arrow' => 'yes', 'layout!' => 'layout-4',
-				],
 			]
 		);
 		$this->add_responsive_control(
@@ -892,9 +904,6 @@ class Testimonial extends ElementorBase {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .swiper-navigation .swiper-button-next' => 'right: {{SIZE}}{{UNIT}};',
-				],
-				'condition'   => [
-					'display_arrow' => 'yes', 'layout!' => 'layout-4',
 				],
 			]
 		);
@@ -1045,7 +1054,7 @@ class Testimonial extends ElementorBase {
 				'label' => esc_html__( 'Number of Responsive Columns', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition'  => [
-					'layout' => ['layout-3', 'layout-4'],
+					'layout' => ['layout-3'],
 				],
 			]
 		);
@@ -1104,7 +1113,7 @@ class Testimonial extends ElementorBase {
 			[
 				'label' => __( 'Slider Grid', 'kariez-core' ),
 				'condition' => [
-					'layout' => ['layout-1', 'layout-2'],
+					'layout' => ['layout-1', 'layout-2', 'layout-4'],
 				],
 			]
 		);
@@ -1181,6 +1190,18 @@ class Testimonial extends ElementorBase {
 				),
 			]
 		);
+		$this->add_control(
+			'xs_mobile',
+			[
+				'type'    => Controls_Manager::SELECT2,
+				'label'   => esc_html__( 'Phones: > 320px', 'kariez-core' ),
+				'default' => '1',
+				'options' => array(
+					'1' => esc_html__( '1', 'kariez-core' ),
+					'2' => esc_html__( '2', 'kariez-core' ),
+				),
+			]
+		);
 
 		$this->end_controls_section();
 
@@ -1191,7 +1212,7 @@ class Testimonial extends ElementorBase {
 			[
 				'label' => __( 'Slider Option', 'kariez-core' ),
 				'condition' => [
-					'layout' => ['layout-1', 'layout-2'],
+					'layout' => ['layout-1', 'layout-2', 'layout-4'],
 				],
 			]
 		);
@@ -1420,6 +1441,7 @@ class Testimonial extends ElementorBase {
 			'speed'      =>$data['slider_autoplay_speed'],
 			'breakpoints' =>array(
 				'0'    =>array('slidesPerView' =>1),
+				'320'    =>array('slidesPerView' =>$data['xs_mobile']),
 				'425'    =>array('slidesPerView' =>$data['sm_mobile']),
 				'576'    =>array('slidesPerView' =>$data['mobile']),
 				'768'    =>array('slidesPerView' =>$data['tablet']),
@@ -1444,6 +1466,8 @@ class Testimonial extends ElementorBase {
 			$template = 'view-2';
 		} elseif ( 'layout-3' == $data['layout'] ) {
 			$template = 'view-grid-1';
+		} elseif ( 'layout-4' == $data['layout'] ) {
+			$template = 'view-3';
 		}
 
 		Fns::get_template( "elementor/testimonial/$template", $data );

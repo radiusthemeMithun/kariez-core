@@ -21,6 +21,15 @@ class WorkingProcess extends ElementorBase {
 	public function __construct($data = [], $args = null) {
 		$this->rt_name = esc_html__('RT Working Process', 'kariez-core');
 		$this->rt_base = 'rt-working-process';
+		$this->rt_translate = array(
+			'cols'  => array(
+				'12' => esc_html__( '1 Col', 'kariez-core' ),
+				'6'  => esc_html__( '2 Col', 'kariez-core' ),
+				'4'  => esc_html__( '3 Col', 'kariez-core' ),
+				'3'  => esc_html__( '4 Col', 'kariez-core' ),
+				'2'  => esc_html__( '6 Col', 'kariez-core' ),
+			),
+		);
 		parent::__construct($data, $args);
 	}
 
@@ -36,6 +45,24 @@ class WorkingProcess extends ElementorBase {
 		// Features
 		$repeater = new \Elementor\Repeater();
 
+		$repeater->add_control(
+			'image',  [
+				'label'   => __( 'Choose Image', 'kariez-core' ),
+				'type'    => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'number', [
+				'label' => __('Number', 'kariez-core'),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => '01',
+				'label_block' => true,
+			]
+		);
 
 		$repeater->add_control(
 			'title', [
@@ -55,15 +82,42 @@ class WorkingProcess extends ElementorBase {
 			]
 		);
 
+		$repeater->add_control(
+			'url', [
+				'label' => __('Link', 'kariez-core'),
+				'type' => \Elementor\Controls_Manager::URL,
+				'placeholder' => __('https://your-link.com', 'kariez-core'),
+				'show_external' => true,
+				'default' => [
+					'url' => '',
+					'is_external' => false,
+					'nofollow' => false,
+				],
+				'label_block' => true,
+			]
+		);
+
+//		$repeater->add_control(
+//			'step_color',
+//			[
+//				'label' => __('Step Color', 'kariez-core'),
+//				'type' => \Elementor\Controls_Manager::COLOR,
+//				'default' => '',
+//				'selectors' => [
+//					'{{WRAPPER}} .rt-icon-list .list-items {{CURRENT_ITEM}} .title-link' => 'color: {{VALUE}}',
+//				],
+//			]
+//		);
 
 		$this->add_control(
 			'layout',
 			[
 				'label'   => esc_html__( 'Layout', 'kariez-core' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'layout-1',
+				'default' => 'layout-2',
 				'options' => [
 					'layout-1' => __( 'Layout 1', 'kariez-core' ),
+					'layout-2' => __( 'Layout 2', 'kariez-core' ),
 				],
 
 			]
@@ -77,29 +131,39 @@ class WorkingProcess extends ElementorBase {
 				'fields' => $repeater->get_controls(),
 				'default' => [
 					[
-						'title' => __('2016 Awards', 'kariez-core'),
-						'content' => __('New strategy Visualisation', 'kariez-core'),
+						'number' => __('01', 'kariez-core'),
+						'title' => __('Step 1: Receive Package', 'kariez-core'),
+						'content' => __('Lorem ipsum dolor sit amet consectetur adipiscing elit. Mauris nullam the as integer.', 'kariez-core'),
 					],
 					[
-						'title' => __('2018 Awards', 'kariez-core'),
-						'content' => __('Animation quality Mobile excellence', 'kariez-core'),
+						'number' => __('02', 'kariez-core'),
+						'title' => __('Step 2: Transport Packages', 'kariez-core'),
+						'content' => __('Lorem ipsum dolor sit amet consectetur adipiscing elit. Mauris nullam the as integer.', 'kariez-core'),
 					],
 					[
-
-						'title' => __('2020 Awards', 'kariez-core'),
-						'content' => __('New strategy Visualisation', 'kariez-core'),
+						'number' => __('03', 'kariez-core'),
+						'title' => __('Step 3: Deliver Packages', 'kariez-core'),
+						'content' => __('Lorem ipsum dolor sit amet consectetur adipiscing elit. Mauris nullam the as integer.', 'kariez-core'),
 					],
-					[
-
-						'title' => __('2021 Awards', 'kariez-core'),
-						'content' => __('Animation quality Mobile excellence', 'kariez-core'),
-					],
-                    [
-                        'title' => __('2022 Awards', 'kariez-core'),
-                        'content' => __('New strategy Visualisation', 'kariez-core'),
-                    ],
 				],
 				'title_field' => '{{{ title }}}',
+			]
+		);
+
+		$this->add_control(
+			'item_space',
+			[
+				'type'        => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Item Gutter', 'kariez-core' ),
+				'options' => [
+					'g-0' => __( 'Gutters 0', 'kariez-core' ),
+					'g-1' => __( 'Gutters 1', 'kariez-core' ),
+					'g-2' => __( 'Gutters 2', 'kariez-core' ),
+					'g-3' => __( 'Gutters 3', 'kariez-core' ),
+					'g-4' => __( 'Gutters 4', 'kariez-core' ),
+					'g-5' => __( 'Gutters 5', 'kariez-core' ),
+				],
+				'default' => 'g-4',
 			]
 		);
 
@@ -129,6 +193,62 @@ class WorkingProcess extends ElementorBase {
 			]
 		);
 
+		$this->end_controls_section();
+
+		// Responsive Settings
+		$this->start_controls_section(
+			'sec_grid_responsive',
+			[
+				'label' => esc_html__( 'Number of Responsive Columns', 'kariez-core' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'col_xl',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Desktops: > 1199px', 'kariez-core' ),
+				'options' => $this->rt_translate['cols'],
+				'default' => '3',
+			]
+		);
+		$this->add_control(
+			'col_lg',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Desktops: > 991px', 'kariez-core' ),
+				'options' => $this->rt_translate['cols'],
+				'default' => '4',
+			]
+		);
+		$this->add_control(
+			'col_md',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Tablets: > 767px', 'kariez-core' ),
+				'options' => $this->rt_translate['cols'],
+				'default' => '6',
+			]
+		);
+		$this->add_control(
+			'col_sm',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Phones: < 768px', 'kariez-core' ),
+				'options' => $this->rt_translate['cols'],
+				'default' => '6',
+			]
+		);
+		$this->add_control(
+			'col_xs',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label'   => esc_html__( 'Small Phones: < 480px', 'kariez-core' ),
+				'options' => $this->rt_translate['cols'],
+				'default' => '12',
+			]
+		);
 
 		$this->end_controls_section();
 
@@ -239,6 +359,459 @@ class WorkingProcess extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Thumb Settings
+		$this->start_controls_section(
+			'thumb_settings',
+			[
+				'label' => esc_html__('Thumb Settings', 'kariez-core'),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'thumb_display',
+			[
+				'label'        => __( 'Thumb Display', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'kariez-core' ),
+				'label_off'    => __( 'Hide', 'kariez-core' ),
+				'default'      => 'yes',
+			]
+		);
+
+		$this->add_responsive_control(
+			'thumb_radius',
+			[
+				'label'              => __( 'Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ '%', 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-working-process .process-info-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'separator' => 'before',
+				'condition'   => [
+					'thumb_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'image_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .process-info-img' => 'width: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'thumb_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'image_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .process-info-img' => 'Height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'thumb_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'thumb_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Space', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .process-info-img' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'thumb_display' => 'yes',
+				],
+			]
+		);
+
+
+		$this->end_controls_section();
+
+		// Step Settings
+		$this->start_controls_section(
+			'step_settings',
+			[
+				'label' => esc_html__('Step Settings', 'kariez-core'),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'step_display',
+			[
+				'label'        => __( 'Step Display', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'kariez-core' ),
+				'label_off'    => __( 'Hide', 'kariez-core' ),
+				'default'      => 'yes',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'step_typo',
+				'label' => esc_html__('Typo', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-working-process .rt-step',
+				'condition'   => [
+					'step_display' => 'yes',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'step_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Space', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .rt-step' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'step_display' => 'yes',
+				],
+			]
+		);
+		$this->add_control(
+			'step_color',
+			[
+				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'kariez-core'),
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .rt-step' => 'color: {{VALUE}}',
+				],
+				'condition'   => [
+					'step_display' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Number Settings
+		$this->start_controls_section(
+			'number_settings',
+			[
+				'label' => esc_html__('Number Settings', 'kariez-core'),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'number_display',
+			[
+				'label'        => __( 'Number Display', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'kariez-core' ),
+				'label_off'    => __( 'Hide', 'kariez-core' ),
+				'default'      => 'yes',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'number_typo',
+				'label' => esc_html__('Typo', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-working-process .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'number_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Space', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => -100,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => -200,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-process-layout-1 .rt-number' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-process-layout-2 .rt-number' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-process-layout-3 .rt-number' => 'bottom: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'number_radius',
+			[
+				'label'              => __( 'Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-working-process .rt-number' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'separator' => 'before',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .rt-number' => 'width: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .rt-number' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		// Number tab
+		$this->start_controls_tabs(
+			'number_style_tabs',
+		);
+
+		$this->start_controls_tab(
+			'number_normal_tab',
+			[
+				'label' => __('Normal', 'kariez-core'),
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'number_color',
+			[
+				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'kariez-core'),
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .rt-number' => 'color: {{VALUE}}',
+				],
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'number_bg_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-working-process .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'number_border',
+				'selector' => '{{WRAPPER}} .rt-working-process .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'number_box_shadow',
+				'label' => __('Box Shadow', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-working-process .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'number_hover_tab',
+			[
+				'label' => __('Hover', 'kariez-core'),
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'number_hover_color',
+			[
+				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__('Color', 'kariez-core'),
+				'selectors' => [
+					'{{WRAPPER}} .rt-working-process .process-item:hover .rt-number' => 'color: {{VALUE}}',
+				],
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'number_bg_hover_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-working-process .process-item:hover .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'number_hover_border',
+				'selector' => '{{WRAPPER}} .rt-working-process .process-item:hover .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'number_box_hover_shadow',
+				'label' => __('Box Shadow', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-working-process .process-item:hover .rt-number',
+				'condition'   => [
+					'number_display' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
 
 		// Content Settings
 		$this->start_controls_section(
@@ -292,31 +865,6 @@ class WorkingProcess extends ElementorBase {
 				'size_units' => ['px'],
 				'selectors' => [
 					'{{WRAPPER}} .rt-working-process .process-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'separator' =>'before',
-			]
-		);
-
-		$this->add_responsive_control(
-			'content_margin',
-			[
-				'label' => __('Margin Odd', 'kariez-core'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px'],
-				'selectors' => [
-					'{{WRAPPER}} .rt-working-process .process-item.odd' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'separator' =>'before',
-			]
-		);
-		$this->add_responsive_control(
-			'content_margin2',
-			[
-				'label' => __('Margin Even', 'kariez-core'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px'],
-				'selectors' => [
-					'{{WRAPPER}} .rt-working-process .process-item.even' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
 				'separator' =>'before',
 			]
@@ -600,7 +1148,9 @@ class WorkingProcess extends ElementorBase {
 		$data = $this->get_settings();
 		if ( 'layout-1' == $data['layout'] ) {
 			$template = 'view-1';
-		}
+		} elseif ( 'layout-2' == $data['layout'] ) {
+			$template = 'view-2';
+		} 
 		Fns::get_template( "elementor/working-process/$template", $data );
 	}
 }

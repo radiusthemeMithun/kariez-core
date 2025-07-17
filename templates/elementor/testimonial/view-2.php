@@ -25,7 +25,15 @@
 use Elementor\Icons_Manager;
 ?>
 <div class="rt-testimonial-slider position-relative rt-testimonial-<?php echo esc_attr( $layout ) ?>">
-    <div class="rt-swiper-slider <?php echo esc_attr( $arrow_hover_visibility ) ?>" data-xld ="<?php echo esc_attr( $swiper_data );?>">
+    <div class="cursor">
+        <div class="cursor__inner">
+            <svg width="25" height="14" viewBox="0 0 25 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.71875 10.4375L5.28125 7L8.71875 3.5625" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.9062 10.4375L19.3438 7L15.9062 3.5625" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+    <div class="custom-cursor-swiper rt-swiper-slider <?php echo esc_attr( $arrow_hover_visibility ) ?>" data-xld ="<?php echo esc_attr( $swiper_data );?>">
         <div class="swiper-wrapper">
             <?php $ade = $delay; $adu = $duration;
             foreach ( $items as $item ): ?>
@@ -40,7 +48,7 @@ use Elementor\Icons_Manager;
                                     } else {
                                         $full = 'deactive';
                                     }
-                                    echo '<li class="has-rating"><i class="icon-star-fill '.$full.'"></i></li>';
+                                    echo '<li class="has-rating"><i class="icon-star '.$full.'"></i></li>';
                                 } ?>
                             </ul>
                         <?php } ?>

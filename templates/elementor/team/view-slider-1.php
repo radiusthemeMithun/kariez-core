@@ -78,7 +78,7 @@ $query = new WP_Query( $args );
                     <div class="team-item">
                         <div class="team-content-wrap">
                             <div class="team-thumbs">
-                                <?php kariez_post_thumbnail('full'); ?>
+                                <?php kariez_post_thumbnail(); ?>
 	                            <?php if ( $social_display ) { ?>
                                     <ul class="team-social">
                                         <?php foreach ( $socials as $key => $value ):

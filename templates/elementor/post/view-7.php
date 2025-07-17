@@ -25,6 +25,14 @@
  * @var $left_right_order           string
  * @var $post_limit                 string
  * @var $query_type                 string
+ * @var $orderby                    string
+ * @var $order                      string
+ * @var $post_source                string
+ * @var $categories                 string
+ * @var $tags                       string
+ * @var $post_id                    string
+ * @var $exclude                    string
+ * @var $offset                     string
  *
  */
 
@@ -36,7 +44,52 @@ $args = [
     'post_status'         => 'publish',
 ];
 
-$query               = new \WP_Query( $args );
+
+
+if ( ! empty ( $orderby ) ){
+	$args['orderby'] = $orderby;
+}
+
+if ( ! empty( $order ) ) {
+	$args['order'] = $order;
+}
+
+if( ! empty ( $orderby ) && $orderby == 'popular' ){
+	$args['orderby'] = 'meta_value_num';
+	$args['order'] = 'DESC';
+	$args['meta_key'] = 'rt_post_views';
+}
+
+if ( $post_source == 'by_category' && $categories ) :
+	$args = wp_parse_args(
+		[
+			'cat' => $categories,
+		]
+		, $args );
+endif;
+
+if ( $post_source == 'by_tags' && $tags ) :
+	$args = wp_parse_args(
+		[
+			'tag_slug__in' => $tags,
+		]
+		, $args );
+endif;
+
+if ( $post_source == 'by_id' && $post_id ) :
+	$post_ids         = explode( ',', $post_id );
+	$args['post__in'] = $post_ids;
+endif;
+
+if ( $exclude ) :
+	$excluded_ids         = explode( ',', $exclude );
+	$args['post__not_in'] = $excluded_ids;
+endif;
+
+
+if ( $offset ) {
+	$args['offset'] = $offset;
+}
 
 
 if(!empty($catid)){
@@ -50,11 +103,14 @@ if(!empty($catid)){
         ];
     }
 }
+
 if(!empty($postid)){
     if( $query_type == 'posts'){
         $args['post__in'] = $postid;
     }
 }
+
+$query               = new \WP_Query( $args );
 
 $has_entry_meta  = ( $author_visibility || $date_visibility || $comment_visibility || $reading_visibility ) ? true : false;
 
@@ -101,11 +157,11 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                                 <?php } if ( $date_visibility ) { ?>
                                     <li><i class="icon-calendar"></i><?php echo kariez_posted_on(); ?></li>
                                 <?php } if ( $comment_visibility ) { ?>
-                                    <li><i class="icon-comments"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
+                                    <li><i class="icon-comment"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
                                 <?php } if ( $reading_visibility ) { ?>
                                     <li><i class="icon-clock"></i><?php echo kariez_reading_time(); ?></li>
                                 <?php } if ( $views_visibility ) { ?>
-                                    <li><i class="icon-quick-view"></i><?php echo rt_post_views(); ?></li>
+                                    <li><i class="icon-eye"></i><?php echo rt_post_views(); ?></li>
                                 <?php } ?>
                             </ul>
                         </div>
@@ -118,8 +174,11 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                     <?php } ?>
                     <?php if( 'visible' === $readmore_visibility ) { ?>
                         <div class="rt-button entry-footer">
-                            <a class="btn button-2" href="<?php the_permalink();?>">
-                                <?php echo esc_html( $readmore_text );?><i class="icon-arrow-right"></i>
+                            <a class="btn button-3" href="<?php the_permalink();?>">
+                                <span class="button-text"><?php echo esc_html( $readmore_text );?></span>
+                                <span class="btn-round-shape">
+							        <i class="icon-arrow-right"></i>
+						        </span>
                             </a>
                         </div>
                     <?php } ?>
@@ -135,7 +194,7 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                         <div class="col-12 rt-post-sm-overlay">
                             <div class="article-inner-wrapper">
                                 <?php if( 'visible' === $thumbnail_visibility ) { ?>
-                                    <?php kariez_post_thumbnail( $project_thumbnail_size ); ?>
+                                    <?php kariez_post_thumbnail('kariez-size4'); ?>
                                 <?php } ?>
                                 <div class="entry-wrapper">
                                     <header class="entry-header">
@@ -151,11 +210,11 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                                                 <?php } if ( $date_visibility ) { ?>
                                                     <li><i class="icon-calendar"></i><?php echo kariez_posted_on(); ?></li>
                                                 <?php } if ( $comment_visibility ) { ?>
-                                                    <li><i class="icon-comments"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
+                                                    <li><i class="icon-comment"></i><a href="<?php echo get_comments_link( get_the_ID() ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
                                                 <?php } if ( $reading_visibility ) { ?>
                                                     <li><i class="icon-clock"></i><?php echo kariez_reading_time(); ?></li>
                                                 <?php } if ( $views_visibility ) { ?>
-                                                    <li><i class="icon-quick-view"></i><?php echo rt_post_views(); ?></li>
+                                                    <li><i class="icon-eye"></i><?php echo rt_post_views(); ?></li>
                                                 <?php } ?>
                                             </ul>
                                         </div>
@@ -168,8 +227,11 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                                     <?php } ?>
                                     <?php if( 'visible' === $readmore_visibility ) { ?>
                                         <div class="rt-button entry-footer">
-                                            <a class="btn button-2" href="<?php the_permalink();?>">
-                                                <?php echo esc_html( $readmore_text );?><i class="icon-arrow-right"></i>
+                                            <a class="btn button-3" href="<?php the_permalink();?>">
+                                                <span class="button-text"><?php echo esc_html( $readmore_text );?></span>
+                                                <span class="btn-round-shape">
+                                                    <i class="icon-arrow-right"></i>
+                                                </span>
                                             </a>
                                         </div>
                                     <?php } ?>

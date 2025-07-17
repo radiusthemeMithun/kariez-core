@@ -61,7 +61,7 @@ class ServiceSlider extends ElementorBase {
                 'type'      => \Elementor\Controls_Manager::ICONS,
                 'fa4compatibility' => 'icon',
                 'default'          => [
-                    'value'   => 'icon-truck-1',
+                    'value'   => 'icon-truck',
                     'library' => 'solid',
                 ],
             ]
@@ -85,6 +85,37 @@ class ServiceSlider extends ElementorBase {
                 'label_block' => true,
             ]
         );
+
+		$repeater->add_control(
+			'button_text',
+			[
+				'type' => Controls_Manager::TEXT,
+				'label'   => esc_html__( 'Button Text', 'kariez-core' ),
+				'default' => esc_html__( 'Get In Touch', 'kariez-core' ),
+				'label_block' => true,
+			]
+		);
+
+		$repeater->add_control(
+			'button_url', [
+				'type' => Controls_Manager::URL,
+				'label'   => esc_html__( 'Button URL', 'kariez-core' ),
+				'placeholder' => esc_url('https://your-link.com' ),
+				'label_block' => true,
+			]
+		);
+
+		$repeater->add_control(
+			'button_icon', [
+				'label'            => __( 'Choose Icon', 'kariez-core' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'default'          => [
+					'value'   => 'icon-arrow-right',
+					'library' => 'solid',
+				],
+			]
+		);
 
 
 
@@ -121,6 +152,10 @@ class ServiceSlider extends ElementorBase {
 					[
 						'content'     => __( 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Mauris any nullam the as integer quam dolor nunc semper. Ornare non nulla as faucibus pulvinar vulputate neque. The as Suscipit tristique nam it  enim mauris consectetur platea.', 'kariez-core' ),
                         'stroke'        => __( 'Ocean Transport', 'kariez-core' ),
+					],
+					[
+						'content'     => __( 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Mauris any nullam the as integer quam dolor nunc semper. Ornare non nulla as faucibus pulvinar vulputate neque. The as Suscipit tristique nam it  enim mauris consectetur platea.', 'kariez-core' ),
+						'stroke'        => __( 'Railway Transport', 'kariez-core' ),
 					],
 
 				],
@@ -177,6 +212,17 @@ class ServiceSlider extends ElementorBase {
                 'default'      => 'no',
             ]
         );
+		$this->add_control(
+			'button_text_display',
+			[
+				'label'        => __( 'Button Text Display', 'kariez-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'kariez-core' ),
+				'label_off'    => __( 'Hide', 'kariez-core' ),
+				'return_value' => 'no',
+				'default'      => 'no',
+			]
+		);
 
 
 
@@ -562,6 +608,410 @@ class ServiceSlider extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Button Settings
+		$this->start_controls_section(
+			'button_settings',
+			[
+				'label' => esc_html__( 'Button Settings', 'kariez-core' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'button_typo',
+				'label'    => esc_html__( 'Typography', 'kariez-core' ),
+				'selector' => '{{WRAPPER}} .rt-button .btn',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_padding',
+			[
+				'label'              => __( 'Padding', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'button_radius',
+			[
+				'label'              => __( 'Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_text_margin',
+			[
+				'label'              => __( 'Button Text Margin', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn .button-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		//Button style Tabs
+		$this->start_controls_tabs(
+			'button_style_tabs', [
+			]
+		);
+
+		$this->start_controls_tab(
+			'button_style_normal_tab',
+			[
+				'label' => __( 'Normal', 'kariez-core' ),
+			]
+		);
+		$this->add_control(
+			'button_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn i' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_bg_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn:before',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'button_border',
+				'selector' => '{{WRAPPER}} .rt-button .btn',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'button_box_shadow',
+				'label' => __('Box Shadow', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-button .btn',
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'button_style_hover_tab',
+			[
+				'label' => __( 'Hover', 'kariez-core' ),
+			]
+		);
+
+		$this->add_control(
+			'button_hover_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn:hover i' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_bg_hover_color',
+				'label' => __('Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover:before',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'button_hover_border',
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'button_hover_box_shadow',
+				'label' => __('Box Shadow', 'kariez-core'),
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover',
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		// Button Icon
+		$this->start_controls_section(
+			'icon_settings',
+			[
+				'label' => esc_html__( 'Button Icon Settings', 'kariez-core' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'icon_alignment',
+			[
+				'label'     => __( 'Alignment', 'kariez-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'row'   => [
+						'title' => __( 'left', 'kariez-core' ),
+						'icon'  => 'eicon-arrow-right',
+					],
+					'row-reverse'  => [
+						'title' => __( 'right', 'kariez-core' ),
+						'icon'  => 'eicon-arrow-left',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn' => 'flex-direction: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'button_icon',
+			[
+				'label'            => __( 'Choose Icon', 'kariez-core' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'default'          => [
+					'value'   => 'icon-arrow-right',
+					'library' => 'solid',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'icon_shape_height',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Height', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_responsive_control(
+			'icon_shape_width',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Shape Width', 'kariez-core' ),
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 0,
+						'max' => 200,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_color',
+				'label' => __('Icon Shape Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn .btn-round-shape',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name' => 'button_icon_shape_bg_hover_color',
+				'label' => __('Icon Shape Hover Background', 'kariez-core'),
+				'types' => ['classic', 'gradient'],
+				'fields_options'  => [
+					'background' => [
+						'label' => esc_html__( 'Icon Shape Hover Background', 'kariez-core' ),
+					],
+				],
+				'selector' => '{{WRAPPER}} .rt-button .btn:hover .btn-round-shape',
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_icon_shape_radius',
+			[
+				'label'              => __( 'Icon Shape Radius', 'kariez-core' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ '%', 'px'  ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-button .btn .btn-round-shape' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'separator' => 'before',
+			]
+		);
+
+
+		$this->add_control(
+			'icon_size',
+			[
+				'label'      => __( 'Icon Size', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 40,
+						'step' => 1,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 14,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-button .btn i'   => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-button .btn svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'button_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-button .btn svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'icon_space',
+			[
+				'type'    => Controls_Manager::SLIDER,
+				'mode'          => 'responsive',
+				'label'   => esc_html__( 'Icon Space', 'kariez-core' ),
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn' => 'column-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
 		// Slider setting
 		$this->start_controls_section(
 			'slider_style',
@@ -779,7 +1229,7 @@ class ServiceSlider extends ElementorBase {
 		$this->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
-				'name' => 'button_border',
+				'name' => 'swiper_button_border',
 				'selector' => '{{WRAPPER}} .swiper-navigation .swiper-button',
 			]
 		);
@@ -822,7 +1272,7 @@ class ServiceSlider extends ElementorBase {
 		$this->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
-				'name' => 'button_hover_border',
+				'name' => 'swiper_button_hover_border',
 				'selector' => '{{WRAPPER}} .swiper-navigation .swiper-button:hover',
 			]
 		);
@@ -949,6 +1399,18 @@ class ServiceSlider extends ElementorBase {
 			[
 				'type'    => Controls_Manager::SELECT2,
 				'label'   => esc_html__( 'Phones: > 425px', 'kariez-core' ),
+				'default' => '1',
+				'options' => array(
+					'1' => esc_html__( '1', 'kariez-core' ),
+					'2' => esc_html__( '2', 'kariez-core' ),
+				),
+			]
+		);
+		$this->add_control(
+			'xs_mobile',
+			[
+				'type'    => Controls_Manager::SELECT2,
+				'label'   => esc_html__( 'Phones: > 320px', 'kariez-core' ),
 				'default' => '1',
 				'options' => array(
 					'1' => esc_html__( '1', 'kariez-core' ),
@@ -1196,6 +1658,7 @@ class ServiceSlider extends ElementorBase {
 			'speed'      =>$data['slider_autoplay_speed'],
 			'breakpoints' =>array(
 				'0'    =>array('slidesPerView' =>1),
+				'320'    =>array('slidesPerView' =>$data['xs_mobile']),
 				'425'    =>array('slidesPerView' =>$data['sm_mobile']),
 				'576'    =>array('slidesPerView' =>$data['mobile']),
 				'768'    =>array('slidesPerView' =>$data['tablet']),

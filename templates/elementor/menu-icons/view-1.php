@@ -63,10 +63,18 @@ if ( $button ) {
 		<?php } ?>
 		<?php if ( $button == 'yes' ) { ?>
 			<li class="rt-action-button rt-button">
-				<a class="btn button-2" <?php echo $attr; ?> aria-label="button link">
-					<?php if ( $button_text ) { ?><?php echo esc_html( $button_text );?><?php } ?><?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
-				</a>
+                <a class="btn button-5" <?php echo $attr; ?> aria-label="button link">
+                    <span class="button-text"><?php echo esc_html( $button_text ); ?>
+                        <?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+                    </span>
+                </a>
 			</li>
 		<?php } ?>
+		<?php if ( $hamburger == 'yes' ) { ?>
+			<?php kariez_hanburger( 'desktop-hamburg' ); ?>
+		<?php } ?>
+
+		<?php kariez_hanburger( 'mobile-hamburg' ); ?>
 	</ul>
 </div>
+

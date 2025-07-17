@@ -25,7 +25,10 @@ if ( !empty( $link['url'] ) ) {
 <div class="rt-button <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $duration );?>ms">
 	<?php if( !empty( $button_text ) ) { ?>
         <a class="btn button-<?php echo esc_attr( $button_style ); ?> <?php if( !empty( $icon_position ) ) { ?><?php echo esc_attr( $icon_position ); ?><?php } ?>" <?php echo $attr; ?> aria-label="button link">
-			<?php echo esc_html( $button_text );?><?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+            <span class="button-text"><?php echo esc_html( $button_text ); ?></span>
+            <span class="btn-round-shape">
+                <?php if( $button_icon ) { ?><?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?><?php } ?>
+            </span>
         </a>
 	<?php } ?>
 </div>

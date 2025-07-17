@@ -72,7 +72,7 @@ if ( ! function_exists( 'kariez_contact_render' ) ) {
                 <?php if ( ! empty( $instance['phone'] ) ) : ?>
                     <li class="phone-no">
                         <div class="phone-box">
-                            <span class="phone-icon"><i class="icon-phone-fill"></i></span>
+                            <span class="phone-icon"><i class="icon-phone"></i></span>
                             <div class="content">
                                 <span class="rt-sm-footer-text"><?php echo esc_html( $instance['label-text'] );?></span>
                                 <a target="_blank" href="tel:<?php echo esc_attr( $instance['phone'] ); ?>">

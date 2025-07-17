@@ -34,16 +34,20 @@ use RT\KariezCore\Elementor\Widgets\Post;
 use RT\KariezCore\Elementor\Widgets\PostSlider;
 use RT\KariezCore\Elementor\Widgets\Team;
 use RT\KariezCore\Elementor\Widgets\Project;
-use RT\KariezCore\Elementor\Widgets\ProjectIsotope;
 use RT\KariezCore\Elementor\Widgets\SiteLogo;
 use RT\KariezCore\Elementor\Widgets\SiteMenu;
 use RT\KariezCore\Elementor\Widgets\MenuIcons;
-use RT\KariezCore\Elementor\Widgets\AjaxSearch;
-use RT\KariezCore\Elementor\Widgets\IconLists;
 use RT\KariezCore\Elementor\Widgets\CopyRight;
 use RT\KariezCore\Elementor\Widgets\ServiceSlider;
 use RT\KariezCore\Elementor\Widgets\InfoSlider;
 use RT\KariezCore\Elementor\Widgets\Apply;
+use RT\KariezCore\Elementor\Widgets\MovingShape;
+use RT\KariezCore\Elementor\Widgets\Location;
+use RT\KariezCore\Elementor\Widgets\ServiceAccordion;
+use RT\KariezCore\Elementor\Widgets\Marquee;
+use RT\KariezCore\Elementor\Widgets\ServiceHover;
+use RT\KariezCore\Elementor\Widgets\ProjectAccordion;
+use RT\KariezCore\Elementor\Widgets\SplitSlider;
 
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,9 +67,6 @@ class ElementorController {
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'editor_scripts' ] );
 		add_action( 'wp_ajax_rt_select2_object_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
 		add_action( 'wp_ajax_nopriv_rt_select2_object_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
-		// Select2 ajax save data.
-		add_action( 'wp_ajax_rt_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
-		add_action( 'wp_ajax_nopriv_rt_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
 		add_action( 'elementor/icons_manager/additional_tabs', [ $this, 'fontello_support' ] );
 	}
 
@@ -129,16 +130,20 @@ class ElementorController {
 			PostSlider::class,
 			Team::class,
 			Project::class,
-			ProjectIsotope::class,
 			SiteLogo::class,
 			SiteMenu::class,
 			MenuIcons::class,
-			AjaxSearch::class,
-			IconLists::class,
 			CopyRight::class,
             ServiceSlider::class,
             InfoSlider::class,
             Apply::class,
+			MovingShape::class,
+			Location::class,
+			ServiceAccordion::class,
+			Marquee::class,
+			ServiceHover::class,
+			ProjectAccordion::class,
+			SplitSlider::class,
 
 		];
 		foreach ( $widgets as $class ) {

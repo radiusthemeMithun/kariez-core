@@ -27,7 +27,6 @@ class WidgetInit {
 			Contact_Widget::class,
 			Post_Widget::class,
 			Search_Widget::class,
-			Download_Widget::class,
 		];
 
 		add_action( 'widgets_init', [ $this, 'custom_widgets' ] );

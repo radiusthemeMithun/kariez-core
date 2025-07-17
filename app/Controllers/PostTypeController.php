@@ -35,33 +35,33 @@ class PostTypeController {
 		$custom_posts = [
 			[
 				'id'            => 'rt-team',
-				'slug'          => kariez_option('rt_team_slug'),
+				'slug'          => get_theme_mod('rt_team_slug'),
 				'singular'      => 'Team',
 				'plural'        => 'Teams',
 				'menu_icon'     => 'dashicons-admin-customizer',
 				'menu_position' => 20,
 				'supports'      => [ 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'comments' ],
-				'description'   => __( 'Teams Custom Post Type', 'kariez-core' ),
+				'description'   => esc_html__( 'Teams Custom Post Type', 'kariez-core' ),
 			],
 			[
 				'id'            => 'rt-service',
-				'slug'          => kariez_option('rt_service_slug'),
+				'slug'          => get_theme_mod('rt_service_slug'),
 				'singular'      => 'Service',
 				'plural'        => 'Services',
 				'menu_icon'     => 'dashicons-admin-customizer',
 				'menu_position' => 21,
 				'supports'      => [ 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'comments' ],
-				'description'   => __( 'Service Custom Post Type', 'kariez-core' ),
+				'description'   => esc_html__( 'Service Custom Post Type', 'kariez-core' ),
 			],
 			[
 				'id'            => 'rt-project',
-				'slug'          => kariez_option('rt_project_slug'),
+				'slug'          => get_theme_mod('rt_project_slug'),
 				'singular'      => 'Project',
 				'plural'        => 'Project',
 				'menu_icon'     => 'dashicons-admin-customizer',
 				'menu_position' => 22,
 				'supports'      => [ 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'comments' ],
-				'description'   => __( 'Project Custom Post Type', 'kariez-core' ),
+				'description'   => esc_html__( 'Project Custom Post Type', 'kariez-core' ),
 			]
 		];
 
@@ -77,23 +77,23 @@ class PostTypeController {
 			[
 				'id'        => 'rt-team-category',
 				'post_type' => [ 'rt-team' ],
-				'slug'      => kariez_option('rt_team_cat_slug'),
-				'singular'  => __( 'Team Category', 'kariez-core' ),
-				'plural'    => __( 'Team Categories', 'kariez-core' ),
+				'slug'      => get_theme_mod('rt_team_cat_slug'),
+				'singular'  => esc_html__( 'Team Category', 'kariez-core' ),
+				'plural'    => esc_html__( 'Team Categories', 'kariez-core' ),
 			],
 			[
 				'id'        => 'rt-service-category',
 				'post_type' => [ 'rt-service' ],
-				'slug'      => kariez_option('rt_service_cat_slug'),
-				'singular'  => __( 'Service Category', 'kariez-core' ),
-				'plural'    => __( 'Service Categories', 'kariez-core' ),
+				'slug'      => get_theme_mod('rt_service_cat_slug'),
+				'singular'  => esc_html__( 'Service Category', 'kariez-core' ),
+				'plural'    => esc_html__( 'Service Categories', 'kariez-core' ),
 			],
 			[
 				'id'        => 'rt-project-category',
 				'post_type' => [ 'rt-project' ],
-				'slug'      => kariez_option('rt_project_cat_slug'),
-				'singular'  => __( 'Project Category', 'kariez-core' ),
-				'plural'    => __( 'Project Categories', 'kariez-core' ),
+				'slug'      => get_theme_mod('rt_project_cat_slug'),
+				'singular'  => esc_html__( 'Project Category', 'kariez-core' ),
+				'plural'    => esc_html__( 'Project Categories', 'kariez-core' ),
 			]
 		];
 

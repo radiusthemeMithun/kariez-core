@@ -40,74 +40,68 @@ class RTDemoimport {
 
 		$demos_array = array(
 			'demo1' => array(
-				'title'             => __( 'Finance Consultancy', 'kariez-core' ),
-				'page'              => __( 'Home 01', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'title'             => __( 'Main Home', 'kariez-core' ),
+				'page'              => __( 'Home', 'kariez-core' ),
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/1.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/',
 			),
 			'demo2' => array(
-				'title'             => __( 'Finance Software', 'kariez-core' ),
+				'title'             => __( 'Cargo Shipping', 'kariez-core' ),
 				'page'              => __( 'Home 02', 'kariez-core' ),
-				'categories'        => [ 'Business' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/2.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-02/',
 			),
 			'demo3' => array(
-				'title'             => __( 'Online Banking', 'kariez-core' ),
+				'title'             => __( 'Ship Shipping', 'kariez-core' ),
 				'page'              => __( 'Home 03', 'kariez-core' ),
-				'categories'        => [ 'Business' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/3.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-03/',
 			),
 			'demo4' => array(
-				'title'             => __( 'Tax Advisory', 'kariez-core' ),
+				'title'             => __( 'Air Shipping', 'kariez-core' ),
 				'page'              => __( 'Home 04', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/4.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-04/',
 			),
+
 			'demo5' => array(
-				'title'             => __( 'Finance Insurance', 'kariez-core' ),
+				'title'             => __( 'Moving Company', 'kariez-core' ),
 				'page'              => __( 'Home 05', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/5.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-05/',
 			),
 			'demo6' => array(
-				'title'             => __( 'Finance Loan', 'kariez-core' ),
+				'title'             => __( 'Land Transport', 'kariez-core' ),
 				'page'              => __( 'Home 06', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/6.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-06/',
 			),
 			'demo7' => array(
-				'title'             => __( 'Finance Audit', 'kariez-core' ),
+				'title'             => __( 'Shipment', 'kariez-core' ),
 				'page'              => __( 'Home 07', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/7.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-07/',
 			),
 			'demo8' => array(
-				'title'             => __( 'Finance Cash Back', 'kariez-core' ),
+				'title'             => __( 'Slider', 'kariez-core' ),
 				'page'              => __( 'Home 08', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/8.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-08/',
 			),
 			'demo9' => array(
-				'title'             => __( 'Investment', 'kariez-core' ),
+				'title'             => __( 'Global Logistics', 'kariez-core' ),
 				'page'              => __( 'Home 09', 'kariez-core' ),
-				'categories'        => [ 'Business' ],
+				'categories'        => [ 'Logistics' ],
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/9.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-09/',
-			),
-			'demo10' => array(
-				'title'             => __( 'Finance Accountant', 'kariez-core' ),
-				'page'              => __( 'Home 10', 'kariez-core' ),
-				'categories'        => [ 'Finance' ],
-				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/10.png',
-				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-10/',
 			),
 		);
 
@@ -259,6 +253,7 @@ class RTDemoimport {
 		update_option( 'elementor_disable_typography_schemes', 'yes' );
 		update_option( 'elementor_unfiltered_files_upload', '1' );
 		update_option( 'elementor_experiment-e_font_icon_svg', 'inactive' );
+		update_option('elementor_container_width', '1320' );
 
 		return $this;
 	}
