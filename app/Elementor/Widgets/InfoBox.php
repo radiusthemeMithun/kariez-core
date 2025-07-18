@@ -46,6 +46,7 @@ class InfoBox extends ElementorBase {
 					'layout-2' => __( 'Layout 2', 'kariez-core' ),
                     'layout-3' => __( 'Layout 3', 'kariez-core' ),
 					'layout-4' => __( 'Layout 4', 'kariez-core' ),
+					'layout-5' => __( 'Layout 5', 'kariez-core' ),
 				],
 			]
 		);
@@ -126,6 +127,21 @@ class InfoBox extends ElementorBase {
 				],
 				'condition'   => [
 					'layout' => 'layout-4',
+				],
+			]
+		);
+		$this->add_control(
+			'info_content_icon',
+			[
+				'label'            => __( 'Choose Content Icon', 'kariez-core' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'default'          => [
+					'value'   => 'icon-truck',
+					'library' => 'solid',
+				],
+				'condition'   => [
+					'layout' => 'layout-5',
 				],
 			]
 		);
@@ -1823,6 +1839,8 @@ class InfoBox extends ElementorBase {
 			$template = 'view-3';
 		} elseif ( 'layout-4' == $data['layout'] ) {
 			$template = 'view-4';
+		} elseif ( 'layout-5' == $data['layout'] ) {
+			$template = 'view-5';
 		}
 
 		Fns::get_template( "elementor/info-box/{$template}", $data );

@@ -684,6 +684,7 @@ class MenuIcons extends ElementorBase {
 			]
 		);
 
+		
 		$this->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
