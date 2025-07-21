@@ -47,6 +47,7 @@ class InfoBox extends ElementorBase {
                     'layout-3' => __( 'Layout 3', 'kariez-core' ),
 					'layout-4' => __( 'Layout 4', 'kariez-core' ),
 					'layout-5' => __( 'Layout 5', 'kariez-core' ),
+					'layout-6' => __( 'Layout 6', 'kariez-core' ),
 				],
 			]
 		);
@@ -345,20 +346,6 @@ class InfoBox extends ElementorBase {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .rt-info-box .content-holder' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'content_padding',
-			[
-				'label'      => __( 'Padding', 'kariez-core' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'selectors'  => [
-					'{{WRAPPER}} .rt-info-layout-7 .info-box .info-content-holder' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'condition'   => [
-					'layout' => ['layout-7'],
 				],
 			]
 		);
@@ -889,7 +876,7 @@ class InfoBox extends ElementorBase {
 				'label' => esc_html__( 'Info Image Settings', 'kariez-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition'    => [
-					'layout' => ['layout-1'],
+					'layout' => ['layout-1', 'layout-5'],
 				],
 			]
 		);
@@ -1103,6 +1090,65 @@ class InfoBox extends ElementorBase {
 				'selector' => '{{WRAPPER}} .rt-info-box .info-box .info-top-icon',
 			]
 		);
+
+		$this->end_controls_section();
+
+		//....Info Content Icon.....//
+
+		$this->start_controls_section(
+			'info_content_icon_settings',
+			[
+				'label'     => esc_html__( 'Content Icon Settings', 'kariez-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'layout' => 'layout-5',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'info_content_icon_font_size',
+			[
+				'label'      => __( 'Icon Size', 'kariez-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 10,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-content-icon'   => 'font-size:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-info-box .info-box .info-content-icon svg' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		$this->add_control(
+			'info_content_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'kariez-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-content-icon'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-box .info-box .info-content-icon svg path' => 'fill: {{VALUE}}',
+				],
+			]
+		);
+		
+		$this->add_responsive_control(
+			'info_content_icon_spacing',
+			[
+				'label'      => __( 'Margin', 'kariez-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-box .info-box .info-content-icon' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
 
 		$this->end_controls_section();
 
@@ -1718,14 +1764,40 @@ class InfoBox extends ElementorBase {
 				'label'     => __( 'Content Background', 'kariez-core' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-info-layout-4 .info-box:after' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-info-layout-5 .info-box .info-content-holder' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-info-layout-6 .info-box .info-content-holder' => 'background-color: {{VALUE}}',
 				],
 				'condition'     => [
-					'layout' => ['layout-4','layout-5'],
+					'layout' => ['layout-6'],
 				],
 			]
 		);
+			$this->add_responsive_control(
+			'content_padding',
+			[
+				'label'      => __( 'Content Padding', 'kariez-core' ),                     
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-info-layout-6 .info-box .info-content-holder' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'condition'   => [
+					'layout' => ['layout-6'],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+		'content_radius',
+		[
+			'label'      => __( 'Content Radius', 'kariez-core' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px' ],
+			'selectors'  => [
+				'{{WRAPPER}} .rt-info-layout-6 .info-box .info-content-holder' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+			],
+		]
+	);
+		
 
 		// Box Shape Settings
 
@@ -1841,6 +1913,8 @@ class InfoBox extends ElementorBase {
 			$template = 'view-4';
 		} elseif ( 'layout-5' == $data['layout'] ) {
 			$template = 'view-5';
+		} elseif ( 'layout-6' == $data['layout'] ) {
+			$template = 'view-6';
 		}
 
 		Fns::get_template( "elementor/info-box/{$template}", $data );
