@@ -3,7 +3,7 @@
 Plugin Name: Kariez Core
 Plugin URI: https://www.radiustheme.com
 Description: Kariez Theme Core Plugin
-Version: 1.1.0
+Version: 1.1.1
 Author: RadiusTheme
 Author URI: https://www.radiustheme.com
 */
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'KARIEZ_CORE' ) ) {
-	define( 'KARIEZ_CORE', '1.1.0' );
+	define( 'KARIEZ_CORE', '1.1.1' );
 	define( 'KARIEZ_CORE_PREFIX', 'kariez' );
 	define( 'KARIEZ_CORE_BASE_URL', plugin_dir_url( __FILE__ ) );
 	define( 'KARIEZ_CORE_BASE_DIR', plugin_dir_path( __FILE__ ) );

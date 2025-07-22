@@ -103,6 +103,20 @@ class RTDemoimport {
 				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/9.png',
 				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-09/',
 			),
+			'demo10' => array(
+				'title'             => __( 'Transport', 'kariez-core' ),
+				'page'              => __( 'Home 10', 'kariez-core' ),
+				'categories'        => [ 'Logistics' ],
+				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/10.png',
+				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-10/',
+			),
+			'demo11' => array(
+				'title'             => __( 'Global Logistics 02', 'kariez-core' ),
+				'page'              => __( 'Home 11', 'kariez-core' ),
+				'categories'        => [ 'Logistics' ],
+				'screenshot'        => RDTHEME_CORE_BASE_URL . 'screenshots/11.png',
+				'preview_link'      => 'https://radiustheme.com/demo/wordpress/themes/kariez/home-11/',
+			),
 		);
 
 		$config = array();
